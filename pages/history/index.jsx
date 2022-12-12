@@ -1,8 +1,16 @@
+import Router from 'next/router';
 import React from 'react';
 import CardHistory from '../../Components/CardHistory';
 import Layout from '../../Components/Layout';
 
 const HistoryPage = () => {
+
+    const addReviewHandler = (id) => {
+        Router.push({
+            pathname: `/history/${id}`
+        })
+    }
+
     return (
         <Layout page={'History'}>
             <div className='lg:mt-20 xs:mt-10 grid grid-cols-1 gap-y-10'>
@@ -13,6 +21,7 @@ const HistoryPage = () => {
                         locationVilla='Pujon, Malang'
                         nameVilla='Alterra Indah'
                         totalPayment='Rp. 30.000.000'
+                        onClickReview={()=> addReviewHandler(1)}
                     />
                     <CardHistory
                         bookingId='#8887hs6FF'
@@ -21,6 +30,7 @@ const HistoryPage = () => {
                         locationVilla='Pujon, Malang'
                         nameVilla='Alterra Indah'
                         totalPayment='Rp. 30.000.000'
+                        onClickReview={() => addReviewHandler(2)}
                     />
                 </div>
         </Layout>

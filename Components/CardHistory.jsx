@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CardHistory = ({ image, bookingId, totalPayment, nameVilla, locationVilla, date }) => {
+const CardHistory = ({ image, bookingId, totalPayment, nameVilla, locationVilla, date, onClickReview }) => {
     return (
         <div className="card w-full grid md:grid-cols-2 p-5 bg-white border border-[#D9D9D9] shadow-sm">
             <figure className='lg:border-r-2 rounded-none lg:border-[#D9D9D9] xl:pr-24 lg:pr-10 md:p-2 sm:m-0'>
@@ -22,7 +22,12 @@ const CardHistory = ({ image, bookingId, totalPayment, nameVilla, locationVilla,
                     <p className='text-[#BBBBBB] text-end'>{date}</p>
                 </div>
                 <div className="card-actions md:justify-end mt-6 sm:justify-center">
-                    <button className="rounded-none bg-stay-secondary border-none px-16 xs:px-10 py-2.5 text-white text-base sm:w-full xs:w-full lg:w-auto md:w-auto">Add Review</button>
+                    <button 
+                    className="rounded-none bg-stay-secondary border-none px-16 xs:px-10 py-2.5 text-white text-base sm:w-full xs:w-full lg:w-auto md:w-auto"
+                    onClick={onClickReview}
+                    >
+                        Add Review
+                    </button>
                 </div>
             </div>
         </div>
