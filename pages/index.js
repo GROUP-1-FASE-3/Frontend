@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Card from '../Components/Card'
+import Footer from '../Components/Footer'
 import Navbar from '../Components/Navbar'
 
 export default function Home() {
@@ -15,7 +15,7 @@ export default function Home() {
         <Card /> */}
         <Navbar />
       </main>
-
+      <Footer />
     </div>
   )
 }
