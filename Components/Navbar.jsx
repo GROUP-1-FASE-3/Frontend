@@ -1,5 +1,5 @@
 import React from 'react'
-import { RiHomeLine } from 'react-icons/Ri'
+import { RiHomeLine } from 'react-icons/ri'
 import { FaRegUserCircle } from 'react-icons/Fa'
 
 const Navbar = () => {
@@ -7,7 +7,7 @@ const Navbar = () => {
         <div>
             <div className="navbar bg-base-100">
                 <div className="flex-1 ml-14">
-                    <a className="btn btn-ghost normal-case text-xl"><RiHomeLine /> Stay</a>
+                    <a className="btn btn-ghost normal-case text-xl"><RiHomeLine size={30} /> Stay.</a>
                 </div>
                 <div className="flex-none mr-14">
                     <ul className="menu menu-horizontal px-1">
@@ -15,7 +15,7 @@ const Navbar = () => {
                         <li><a>Browse by</a></li>
                         <li tabIndex={0}>
                             <a>
-                                <FaRegUserCircle />
+                                <FaRegUserCircle size={25} />
                                 <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
                             </a>
                             <ul className="p-2 bg-base-100">
