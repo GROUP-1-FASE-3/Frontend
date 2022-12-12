@@ -3,7 +3,7 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   content: [
-     "./pages/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
@@ -14,13 +14,14 @@ module.exports = {
       'bg-stay': '#F5F5F5',
       'black': '#000000',
       'white': '#ffffff',
+      'yellow-star': '#FF9900'
     },
-    screens:{
+    screens: {
       'xs': '300px',
       ...defaultTheme.screens,
     },
     extend: {
-      backgroundImage : {
+      backgroundImage: {
         'login-pattern': 'url("/images/login_banner.jpg")',
       },
     },
