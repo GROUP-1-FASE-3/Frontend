@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Card from '../Components/Card'
+import Navbar from '../Components/Navbar'
 
 export default function Home() {
   return (
@@ -10,10 +11,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1 className='text-3xl font-bold'>AirBnB KW</h1>
-        <Card />
+        {/* <h1 className='text-3xl font-bold'>AirBnB KW</h1>
+        <Card /> */}
+        <Navbar />
       </main>
-      
+
     </div>
   )
 }
