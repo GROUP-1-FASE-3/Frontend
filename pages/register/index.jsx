@@ -2,15 +2,35 @@ import React, { useState } from 'react';
 import AuthPage from '../../Components/AuthPage';
 import {IoEye, IoEyeOff} from 'react-icons/io5';
 import {FaUser} from 'react-icons/fa';
+import api from '../../services/api';
 
 const Index = () => {
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [hidePassword, setHidePassword] = useState(true);
+
+    const onRegisterHandler = async() => {
+        await api.register({username, email, password})
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    const onSubmitRegisterHandler = (e) => {
+        e.preventDefault();
+        onRegisterHandler();
+        setEmail('')
+        setPassword('')
+        setUsername('')
+    }
+
     return (
         <AuthPage>
-            <form action="" className='mt-12'>
+            <form className='mt-12' onSubmit={(e) => onSubmitRegisterHandler(e)}>
                 <div className="form-control w-full">
                     <label className="label">
                         <span className="label-text">Username</span>
@@ -66,7 +86,7 @@ const Index = () => {
                     </div>
                 </div>
                 <div className="mt-6 w-full text-end">
-                    <button className="btn bg-stay-secondary w-52 border-none">Register</button>
+                    <button type='submit' className="btn bg-stay-secondary w-52 border-none">Register</button>
                 </div>
             </form>
         </AuthPage>

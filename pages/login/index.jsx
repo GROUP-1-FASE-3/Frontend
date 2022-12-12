@@ -1,14 +1,33 @@
 import React, { useState } from 'react';
 import AuthPage from '../../Components/AuthPage';
-import {IoEye, IoEyeOff} from 'react-icons/io5';
+import { IoEye, IoEyeOff } from 'react-icons/io5';
+import api from '../../services/api';
 
 const LoginPage = () => {
     const [hidePassword, setHidePassword] = useState(true);
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+
+    const onLoginHandler = async () => {
+        await api.login(email, password)
+            .then(response => {
+                console.log(response.data)
+                setEmail('')
+                setPassword('')
+            })
+            .catch(error => {
+                console.log(error.data)
+            })
+    }
+
+    const onLoginSubmitHandler = (e) => {
+        onLoginHandler();
+        e.preventDefault();
+    }
+
     return (
         <AuthPage>
-            <form action="" className='mt-12'>
+            <form className='mt-12' onSubmit={(e) => onLoginSubmitHandler(e)}>
                 <div className="form-control w-full">
                     <label className="label">
                         <span className="label-text">Email Address</span>
@@ -40,14 +59,14 @@ const LoginPage = () => {
                         {
                             password !== '' && (
                                 <label htmlFor="" className='absolute bottom-5 right-5 cursor-pointer text-2xl' onClick={() => setHidePassword(!hidePassword)}>
-                                   {hidePassword ? <IoEye /> : <IoEyeOff />}
+                                    {hidePassword ? <IoEye /> : <IoEyeOff />}
                                 </label>
                             )
                         }
                     </div>
                 </div>
                 <div className="mt-6 w-full text-end">
-                    <button className="btn bg-stay-secondary w-52 border-none">Login</button>
+                    <button type='submit' className="btn bg-stay-secondary w-52 border-none">Login</button>
                 </div>
             </form>
         </AuthPage>
