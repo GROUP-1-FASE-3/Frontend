@@ -1,28 +1,57 @@
 import React, { useState } from 'react';
+// import from 'reac'
 import AuthPage from '../../Components/AuthPage';
 import { IoEye, IoEyeOff } from 'react-icons/io5';
 import { FaUser } from 'react-icons/fa';
 import api from '../../services/api';
+import * as yup from 'yup';
+import Router from 'next/router';
 
 const Index = () => {
     const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
+    const [user_name, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [gender, setGender] = useState('');
+    const [phone_number, setPhone] = useState('');
+    const [user_images, setUserImages] = useState('');
     const [hidePassword, setHidePassword] = useState(true);
 
+    let schema = yup.object().shape({
+        user_name: yup.string().required(),
+        email: yup.string().email().required(),
+        password: yup.string().required('Password is required').min(8)
+    });
+
     const onRegisterHandler = async () => {
-        await api.register({ username, email, password })
-            .then(response => {
-                console.log(response.data)
+        await schema
+            .isValid({
+                user_name: user_name,
+                email: email,
+                password: password
             })
-            .catch(error => {
-                console.log(error)
+            .then((valid) => {
+                console.log(valid)
+                if (valid) {
+                    api.register({ user_name, email, password, gender, phone_number, user_images })
+                        .then(response => {
+                            console.log(response.data)
+                            Router.push({
+                                pathname: `/login`
+                            })
+                        })
+                        .catch(error => {
+                            alert(error)
+                        })
+                } else {
+                    alert(valid)
+                }
             })
+
     }
 
     const onSubmitRegisterHandler = (e) => {
-        e.preventDefault();
         onRegisterHandler();
+        e.preventDefault();
         setEmail('')
         setPassword('')
         setUsername('')
@@ -39,7 +68,7 @@ const Index = () => {
                         <input
                             type="text"
                             placeholder="your username"
-                            value={username}
+                            value={user_name}
                             onChange={(e) => setUsername(e.target.value)}
                             className="p-5 bg-[#3333330F] w-full border-b border-[#00000061] placeholder:text-black rounded-tr rounded-tl focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary"
                         />
