@@ -13,7 +13,7 @@ const AddReview = () => {
             <div className="card border-[#D9D9D9] border lg:p-5 md:p-1 lg:mt-16 md:mt-10 sm:mt-10 xs:mt-10">
                 <div className="card-body grid md:grid-cols-2 sm:grid-cols-1 lg:gap-20 md:gap-10">
                     <div className='lg:w-[357px] xl:w-[457px]'>
-                        <img src="https://placeimg.com/400/225/arch" alt="car!" className='w-full rounded'/>
+                        <img src="https://placeimg.com/400/225/arch" alt="car!" className='w-full rounded' />
                         <div className='grid grid-cols-2 border-none lg:gap-5 md:gap-y-3 md:justify-evenly xs:gap-1 lg:text-2xl md:text-lg mt-10'>
                             <p className='text-stay-primary'>Booking ID</p>
                             <p className='text-[#BBBBBB] text-end'>#88823j2</p>
@@ -42,7 +42,7 @@ const AddReview = () => {
                                 <textarea
                                     // value={username}
                                     // onChange={(e) => setUsername(e.target.value)}
-                                    className="p-5 w-full h-[200px] bg-[#F8F8F880] w-full shadow-md placeholder:text-black rounded focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary"
+                                    className="p-5 h-[200px] bg-[#F8F8F880] w-full shadow-md placeholder:text-black rounded focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary"
                                 ></textarea>
                             </div>
                             <div className='text-end lg:mt-14 xs:mt-8'>

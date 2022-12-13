@@ -12,8 +12,8 @@ const Navbar = () => {
                     </Link>
                 </div>
                 <div className="flex-none">
-                    <ul className="menu menu-horizontal px-1 z-10">
-                        <li><Link href='/home' >Home</Link ></li>
+                    <ul className="menu menu-horizontal px-1">
+                        <li><a>Home</a></li>
                         <li><a>Browse by</a></li>
                         <li tabIndex={0}>
                             <a>
@@ -21,9 +21,8 @@ const Navbar = () => {
                                 <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
                             </a>
                             <ul className="p-2 bg-[#F5F6F7]">
-                                <li><Link href="/profile">Profile</Link></li>
-                                <li><Link href='#'>History</Link></li>
-                                <li><Link href='#'>LogOut</Link></li>
+                                <li><a>Login</a></li>
+                                <li><a>Register</a></li>
                             </ul>
                         </li>
                     </ul>

@@ -9,17 +9,19 @@ const HomePage = () => {
     return (
         <div>
             <Navbar />
-            <div className='mt-10'>
-                <div className='flex justify-center items-center'>
-                    <div className='pr-20 mr-20'>
+            <div className='mt-10 md:container pl-12 md:mx-auto md:px-12 lg:px-20'>
+                <div className='flex flex-col md:flex-row gap-12 justify-between'>
+                    <div className='order-2 md:order-1'>
                         <h1 className='text-4xl text-stay-primary font-bold'>Some of your best ideas<br /> come when<br /> you're on Staycation. </h1>
                         <p className='text-blue-200 mt-5 text-stay-grey text-xl'>We provide what you need to enjoy your<br />
                             holiday with family. Time to make another<br />
                             memorable moments.</p>
                         <button className='btn bg-stay-secondary border-none mt-5 mb-5 w-[210px]'>Show me Now</button>
                     </div>
-                    <div className='pl-20 pb-10'>
-                        <Image className='border-none rounded-2xl' src="/images/picture.png" alt='home' width={400} height={200} />
+                    <div className='order-1 md:order-2'>
+                        <div className='relative w-[300px] h-[300px] md:w-[400px] md:h-[300px] border-none'>
+                            <Image className='' src="/images/picture.png" alt='home' fill />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -46,10 +48,10 @@ const HomePage = () => {
                     </div>
                 </div>
             </div>
-            <div className='mt-20 mb-20'>
-                <h1 className='text-xl container mx-auto ml-20 pl-20 text-blue-900 font-bold text-stay-primary'>Hotels with large living room</h1>
+            <div className='mt-20 mb-20 w-full container mx-auto'>
+                <h1 className='text-xl mx-auto ml-20 pl-20 text-blue-900 font-bold text-stay-primary'>Hotels with large living room</h1>
                 <div className='flex justify-center items-center mt-10'>
-                    <div className='grid grid-cols-3'>
+                    <div className='flex gap-4 md:gap-12 flex-auto'>
                         <CardHome />
                         <CardHome />
                         <CardHome />

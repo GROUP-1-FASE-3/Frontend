@@ -3,9 +3,9 @@ import Image from 'next/image'
 
 const CardHome = () => {
     return (
-        <div className="card-compact w-96 bg-base-100 ml-24 pl-10">
-            <figure>
-                <Image src="/images/card-picture.png" width={300} height={200} />
+        <div className="card-compact w-full bg-base-100">
+            <figure className='relative w-[175px] h-[120px] md:w-[280px] md:h-[150px] rounded-2xl'>
+                <Image src="/images/card-picture.png" fill className='rounded-2xl' />
             </figure>
             <div className="">
                 <div className="flex items-center mt-3 text-yellow-400">
