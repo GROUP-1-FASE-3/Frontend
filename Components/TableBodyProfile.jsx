@@ -4,8 +4,8 @@ import ModalEditProperty from './ModalEditProperty';
 
 const TableBodyProfile = () => {
     return (
-        <div className="overflow-x-auto mt-20 mr-20">
-            <table className="table w-[800px]">
+        <div className="overflow-x-auto my-20 container mx-auto">
+            <table className="table w-10/12">
                 <thead>
                     <tr>
                         <th>No</th>
