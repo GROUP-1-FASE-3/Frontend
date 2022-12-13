@@ -4,7 +4,7 @@ import { RiHomeLine } from 'react-icons/ri'
 const Footer = () => {
     return (
 
-        <footer className="footer p-10 bg-base-200 text-base-content mt-auto bg-white border-t border-[#E5E5E5]">
+        <footer className="footer p-10 bg-base-200 text-base-content mt-auto border-t border-[#E5E5E5]">
             <div className='flex ml-8'>
                 <img src="/images/stay_logo.svg" alt="stay logo" className='w-[100px]' />
             </div>
