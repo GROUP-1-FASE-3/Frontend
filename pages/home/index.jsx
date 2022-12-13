@@ -4,25 +4,18 @@ import Navbar from '../../Components/Navbar'
 import Image from 'next/image';
 import { GoLocation } from 'react-icons/go'
 import CardHome from '../../Components/CardHome';
+import HeroComponent from '../../Components/HeroComponent';
 
 const HomePage = () => {
     return (
-        <div>
+        <div className='max-w-screen'>
             <Navbar />
-            <div className='mt-10'>
-                <div className='flex justify-center items-center'>
-                    <div className='pr-20 mr-20'>
-                        <h1 className='text-4xl text-stay-primary font-bold'>Some of your best ideas<br /> come when<br /> you're on Staycation. </h1>
-                        <p className='text-blue-200 mt-5 text-stay-grey text-xl'>We provide what you need to enjoy your<br />
-                            holiday with family. Time to make another<br />
-                            memorable moments.</p>
-                        <button className='btn bg-stay-secondary border-none mt-5 mb-5 w-[210px]'>Show me Now</button>
-                    </div>
-                    <div className='pl-20 pb-10'>
-                        <Image className='border-none rounded-2xl' src="/images/picture.png" alt='home' width={400} height={200} />
-                    </div>
-                </div>
-            </div>
+            <HeroComponent
+                title={<h1 className='text-4xl text-stay-primary font-bold'>Some of your best ideas<br /> come when<br /> you're on Staycation. </h1>}
+                desc={<p className='text-blue-200 mt-5 text-stay-grey text-xl'>We provide what you need to enjoy your<br />holiday with family. Time to make another<br />memorable moments.</p>}
+                button='Show Me Now'
+                imgSrc='/images/picture.png'
+            />
             <div className='mt-20'>
                 <h1 className='text-xl ml-20 pl-20 text-blue-900 font-bold text-stay-primary'>Most Rated</h1>
                 <div className='flex justify-center items-center mt-10'>
