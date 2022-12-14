@@ -10,7 +10,6 @@ import { useSelector } from 'react-redux';
 
 
 const HomePage = () => {
-
     const [cookie] = useCookies(['userToken'])
     const router = useRouter()
     const currentUsers = useSelector((state) => state.users.currentUser)

@@ -20,10 +20,11 @@ const LoginPage = () => {
         await api.login({email, password})
             .then(response => {
                 const data = response.data.data
-                console.log(data)
+                console.log(response)
                 setEmail('')
                 setPassword('')
                 setCookie('userToken', data.token)
+                setCookie('user_id', data.id)
                 dispatch(updateUser(data))
             })
             .catch(error => {

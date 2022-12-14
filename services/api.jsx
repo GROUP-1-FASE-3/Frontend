@@ -1,4 +1,6 @@
 import axios from "axios";
+import { type } from "os";
+import { number } from "prop-types";
 
 
 const instance = axios.create({
@@ -7,6 +9,7 @@ const instance = axios.create({
 
 
 export default {
+    //auth
     login: ({ email, password }) =>
         instance({
             method: `POST`,
@@ -16,6 +19,8 @@ export default {
                 password: password,
             },
         }),
+
+    //user
     register: ({ username, email, password }) =>
         instance({
             method: `POST`,
@@ -34,4 +39,22 @@ export default {
                 Authorization: `Bearer ${token}`,
             },
         }),
+
+    //credit card
+    add: ({type, name, number, cvv, year, user_id}) =>
+        instance({
+            method: `POST`,
+            url: `creditcards`,
+            data: {
+                type: type,
+                name: name,
+                number: number,
+                cvv: cvv,
+                year: year,
+                user_id: user_id,
+            },
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        })
 };
