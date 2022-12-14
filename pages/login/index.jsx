@@ -1,19 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AuthPage from '../../Components/AuthPage';
+import Link from 'next/link'
 import { IoEye, IoEyeOff } from 'react-icons/io5';
 import api from '../../services/api';
+import { useCookies } from 'react-cookie';
 
 const LoginPage = () => {
     const [hidePassword, setHidePassword] = useState(true);
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+    const [cookie, setCookie] = useCookies(['userToken'])
 
     const onLoginHandler = async () => {
         await api.login(email, password)
             .then(response => {
-                console.log(response.data)
+                const data = response.data.data
+                console.log(data)
                 setEmail('')
                 setPassword('')
+                setCookie('userToken', data.token)
             })
             .catch(error => {
                 console.log(error.data)
@@ -24,6 +29,14 @@ const LoginPage = () => {
         onLoginHandler();
         e.preventDefault();
     }
+
+    useEffect(() => {
+        if (cookie.userToken) {
+            console.log('cookie ada')
+        } else {
+            console.log('kosong')
+        }
+    }, [cookie])
 
     return (
         <AuthPage>
