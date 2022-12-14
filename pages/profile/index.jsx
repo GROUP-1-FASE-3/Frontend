@@ -25,11 +25,11 @@ const index = () => {
         console.log(err);
       });
   };
-  console.log(user)
 
   useEffect(() => {
     getDataUser();
   }, []);
+  console.log('this ', user)
 
   return (
     <div className="bg-white">
@@ -38,6 +38,9 @@ const index = () => {
         {user ? (
           <FormProfile
             full_name={user.user_name}
+            email={user.email}
+            phone_number={user.phone_number}
+            gender={user.gender}
           />
         ) : <></>}
         <div className="my-20 container mx-auto">

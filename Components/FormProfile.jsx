@@ -17,19 +17,19 @@ const FormProfile = ({ full_name, gender, email, phone_number }) => {
                         <label className="label">
                             <span className="label-text text-stay-primary text-xl">Gender</span>
                         </label>
-                        <input disabled type="text" placeholder="Type here" className="input input-bordered w-full lg:w-10/12 " />
+                        <input value={gender} disabled type="text" placeholder="Type here" className="input input-bordered w-full lg:w-10/12 " />
                     </div>
                     <div>
                         <label className="label">
                             <span className="label-text text-stay-primary text-xl">Email</span>
                         </label>
-                        <input disabled type="text" placeholder="Type here" className="input input-bordered w-full lg:w-10/12 " />
+                        <input value={email} disabled type="text" placeholder="Type here" className="input input-bordered w-full lg:w-10/12 " />
                     </div>
                     <div>
                         <label className="label">
                             <span className="label-text text-stay-primary text-xl">Phone Number</span>
                         </label>
-                        <input disabled type="text" placeholder="Type here" className="input input-bordered w-full lg:w-10/12 " />
+                        <input value={phone_number} disabled type="text" placeholder="Type here" className="input input-bordered w-full lg:w-10/12 " />
                     </div>
                     <div>
                         <ModalEditProfile />

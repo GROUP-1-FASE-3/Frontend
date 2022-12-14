@@ -3,7 +3,7 @@ import axios from "axios";
 
 const instance = axios.create({
 
-    baseURL : `http://18.141.230.182:80/`
+    baseURL: `http://18.141.230.182:80/`
 })
 
 
@@ -19,7 +19,7 @@ export default {
             },
         }),
 
-    register: ({user_name, email, password, gender, phone_number, user_images}) => 
+    register: ({ user_name, email, password, gender, phone_number, user_images }) =>
         instance({
             method: `POST`,
             url: `users`,
@@ -31,14 +31,21 @@ export default {
                 phone_number: phone_number,
                 user_images: user_images
             }
-        })
-}
-            },
         }),
-    getUser: ({ token, id }) =>
+
+    getUser: (token, id) =>
         instance({
             method: `GET`,
             url: `users/${id}`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }),
+
+    getReservation: (token) =>
+        instance({
+            method: `GET`,
+            url: `reservations`,
             headers: {
                 Authorization: `Bearer ${token}`,
             },
