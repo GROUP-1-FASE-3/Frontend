@@ -32,7 +32,7 @@ export default {
                 user_images: user_images
             },
         }),
-    getUser: ({ token, id }) =>
+    getUser: (token, id) =>
         instance({
             method: `GET`,
             url: `users/${id}`,
@@ -40,4 +40,29 @@ export default {
                 Authorization: `Bearer ${token}`,
             },
         }),
+
+    //villa
+    AddVilla: (token, {villa_name, price, description, address, villa_image1, villa_image2, villa_image3, guest, bedroom, bed, kitchen, pool, wifi}) =>
+        instance({
+            method: `POST`,
+            url: `villas`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            data: {
+                villa_name: villa_name,
+                price: price,
+                description: description,
+                address: address,
+                villa_image1: villa_image1,
+                villa_image2: villa_image2,
+                villa_image3: villa_image3,
+                guest: guest,
+                bedroom: bedroom,
+                bed: bed,
+                kitchen: kitchen,
+                pool: pool,
+                wifi:wifi,
+            }
+        })
 };
