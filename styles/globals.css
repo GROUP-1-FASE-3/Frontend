@@ -5,5 +5,27 @@
 body {
   background: #ffffff;
 
+<<<<<<< HEAD
   font-family: 'Poppins';
 }
+=======
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    color: white;
+    background: black;
+  }
+}
+>>>>>>> d59e9420c010f60aa5462fcadce3e35fba332ac8

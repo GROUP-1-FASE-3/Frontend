@@ -1,31 +1,87 @@
 import React, { useState } from 'react';
+// import from 'reac'
 import AuthPage from '../../Components/AuthPage';
-import {IoEye, IoEyeOff} from 'react-icons/io5';
-import {FaUser} from 'react-icons/fa';
+import { IoEye, IoEyeOff } from 'react-icons/io5';
+import { FaUser } from 'react-icons/fa';
 import api from '../../services/api';
+import * as Yup from 'yup';
+import Router from 'next/router';
+import Swal from "sweetalert2";
 
 const Index = () => {
     const [email, setEmail] = useState('');
-    const [username, setUsername] = useState('');
+    const [user_name, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [gender, setGender] = useState('');
+    const [phone_number, setPhone] = useState('');
+    const [user_images, setUserImages] = useState('');
     const [hidePassword, setHidePassword] = useState(true);
+    const [errors, setErrors] = useState({});
 
-    const onRegisterHandler = async() => {
-        await api.register({username, email, password})
+    let schema = Yup.object().shape({
+        user_name: Yup.string().required('username is required'),
+        email: Yup.string().email('has an email').required('Email is required'),
+        password: Yup.string().min(8, "Password has min 8 character").required('Password is required')
+    });
+
+    const onRegisterHandler = async () => {
+        await api.register({ user_name, email, password, gender, phone_number, user_images })
             .then(response => {
-                console.log(response.data)
+                if (response) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        text: "Registered successfully",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                }
+                setEmail('')
+                setPassword('')
+                setUsername('')
+                Router.push({
+                    pathname: `/login`
+                })
             })
             .catch(error => {
-                console.log(error)
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: { error },
+                    showConfirmButton: true,
+                });
             })
     }
 
     const onSubmitRegisterHandler = (e) => {
         e.preventDefault();
-        onRegisterHandler();
-        setEmail('')
-        setPassword('')
-        setUsername('')
+        try {
+            schema.validateSync(
+                {
+                    user_name: user_name,
+                    email: email,
+                    password: password
+                },
+                {
+                    abortEarly: false
+                }
+            );
+            onRegisterHandler();
+        } catch (err) {
+            const { inner } = err;
+            let formErrors = {};
+
+            if (inner && inner[0]) {
+                inner.forEach(error => {
+                    const { path, message } = error;
+
+                    if (!formErrors[path]) {
+                        formErrors[path] = message;
+                    }
+                });
+            }
+            setErrors(formErrors);
+        }
     }
 
     return (
@@ -39,14 +95,16 @@ const Index = () => {
                         <input
                             type="text"
                             placeholder="your username"
-                            value={username}
+                            value={user_name}
                             onChange={(e) => setUsername(e.target.value)}
-                            className="p-5 w-full bg-[#3333330F] w-full border-b border-[#00000061] placeholder:text-black rounded-tr rounded-tl focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary"
+                            className={`p-5 bg-[#3333330F] w-full ${errors.user_name === undefined ? `border-[#00000061] border-b` : `border-error border-b-2`}  placeholder:text-black rounded-tr rounded-tl focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary`}
                         />
                         <label htmlFor="" className='absolute text-2xl bottom-5 right-5 cursor-pointer text-[#00000061]' onClick={() => setHidePassword(!hidePassword)}>
                             <FaUser />
                         </label>
                     </div>
+                    <small className='text-error'>{errors.user_name}</small>
+
                 </div>
                 <div className="form-control w-full">
                     <label className="label">
@@ -58,12 +116,13 @@ const Index = () => {
                             placeholder="yourmail"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="p-5 w-full bg-[#3333330F] w-full border-b border-[#00000061] placeholder:text-black rounded-tr rounded-tl focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary"
+                            className={`p-5 bg-[#3333330F] w-full ${errors.user_name === undefined ? `border-[#00000061] border-b` : `border-error border-b-2`}  placeholder:text-black rounded-tr rounded-tl focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary`}
                         />
                         <label htmlFor="" className='absolute bottom-5 right-5 cursor-pointer text-[#00000061]' onClick={() => setHidePassword(!hidePassword)}>
                             @gmail.com
                         </label>
                     </div>
+                    <small className='text-error'>{errors.email}</small>
                 </div>
                 <div className="form-control w-full">
                     <label className="label">
@@ -74,16 +133,17 @@ const Index = () => {
                             placeholder="absdgr&#"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="p-5 w-full bg-[#3333330F] border-b border-[#00000061] placeholder:text-black rounded-tr rounded-tl focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary"
+                            className={`p-5 bg-[#3333330F] w-full ${errors.user_name === undefined ? `border-[#00000061] border-b` : `border-error border-b-2`} placeholder:text-black rounded-tr rounded-tl focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary`}
                         />
                         {
                             password !== '' && (
                                 <label htmlFor="" className='absolute bottom-5 right-5 cursor-pointer text-2xl' onClick={() => setHidePassword(!hidePassword)}>
-                                   {hidePassword ? <IoEye /> : <IoEyeOff />}
+                                    {hidePassword ? <IoEye /> : <IoEyeOff />}
                                 </label>
                             )
                         }
                     </div>
+                    <small className='text-error'>{errors.password}</small>
                 </div>
                 <div className="mt-6 w-full text-end">
                     <button type='submit' className="btn bg-stay-secondary w-52 border-none">Register</button>
