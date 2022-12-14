@@ -17,7 +17,7 @@ const LoginPage = () => {
     const dispatch = useDispatch()
 
     const onLoginHandler = async () => {
-        await api.login(email, password)
+        await api.login({email, password})
             .then(response => {
                 const data = response.data.data
                 console.log(data)
