@@ -26,7 +26,10 @@ const Index = () => {
     const onRegisterHandler = async () => {
         await api.register({ user_name, email, password, gender, phone_number, user_images })
             .then(response => {
-                console.log(response.data)
+                alert(response.data)
+                setEmail('')
+                setPassword('')
+                setUsername('')
                 Router.push({
                     pathname: `/login`
                 })
@@ -34,7 +37,6 @@ const Index = () => {
             .catch(error => {
                 alert(error)
             })
-
     }
 
     const onSubmitRegisterHandler = (e) => {
@@ -42,14 +44,15 @@ const Index = () => {
         try {
             schema.validateSync(
                 {
-                    user_name,
-                    email,
-                    password
+                    user_name: user_name,
+                    email: email,
+                    password: password
                 },
                 {
                     abortEarly: false
                 }
             );
+            onRegisterHandler();
         } catch (err) {
             const { inner } = err;
             let formErrors = {};
@@ -65,14 +68,7 @@ const Index = () => {
             }
             setErrors(formErrors);
         }
-
-        // onRegisterHandler();
-        //     setEmail('')
-        // setPassword('')
-        // setUsername('')
     }
-
-    console.log(errors.user_name)
 
     return (
         <AuthPage>
