@@ -4,12 +4,17 @@ import Link from 'next/link'
 import { IoEye, IoEyeOff } from 'react-icons/io5';
 import api from '../../services/api';
 import { useCookies } from 'react-cookie';
+import { useRouter } from 'next/router';
+import { useDispatch } from "react-redux";
+import { updateUser } from '../../store/slice/userSlice';
 
 const LoginPage = () => {
     const [hidePassword, setHidePassword] = useState(true);
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [cookie, setCookie] = useCookies(['userToken'])
+    const router = useRouter()
+    const dispatch = useDispatch()
 
     const onLoginHandler = async () => {
         await api.login(email, password)
@@ -19,11 +24,13 @@ const LoginPage = () => {
                 setEmail('')
                 setPassword('')
                 setCookie('userToken', data.token)
+                dispatch(updateUser(data))
             })
             .catch(error => {
                 console.log(error.data)
             })
     }
+
 
     const onLoginSubmitHandler = (e) => {
         onLoginHandler();
@@ -32,7 +39,7 @@ const LoginPage = () => {
 
     useEffect(() => {
         if (cookie.userToken) {
-            console.log('cookie ada')
+            router.push('/home')
         } else {
             console.log('kosong')
         }
