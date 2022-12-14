@@ -13,13 +13,12 @@ const HomePage = () => {
     const [cookie] = useCookies(['userToken'])
     const router = useRouter()
     const currentUsers = useSelector((state) => state.users.currentUser)
-    console.log('tet', currentUsers)
 
     useEffect(() => {
-        if (!cookie.userToken) {
+        if (!localStorage.getItem('userToken')) {
             router.push('/login')
         }
-    }, [cookie.userToken])
+    }, [localStorage.getItem('userToken')])
 
     return (
         <div className='max-w-screen'>

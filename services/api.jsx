@@ -41,7 +41,7 @@ export default {
         }),
 
     //credit card
-    add: ({type, name, number, cvv, year, user_id}) =>
+    addCreate: (token, {type, name, number, cvv, year, user_id}) =>
         instance({
             method: `POST`,
             url: `creditcards`,
