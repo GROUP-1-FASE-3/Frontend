@@ -83,7 +83,7 @@ const Index = () => {
                             placeholder="your username"
                             value={user_name}
                             onChange={(e) => setUsername(e.target.value)}
-                            className={`p-5 bg-[#3333330F] w-full ${errors.user_name === undefined ? `border-[#00000061] border-b` : `border-error border-b-2`}  placeholder:text-black rounded-tr rounded-tl focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary`}
+                            className={`p-5 bg-[#3333330F] w-full ${errors.user_name === undefined ? `border-[#00000061] border-t-0 border-l-0 border-r-0` : `border-error border-t-0 border-l-0 border-r-0 border-b-2`}  placeholder:text-black rounded-tr rounded-tl focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary`}
                         />
                         <label htmlFor="" className='absolute text-2xl bottom-5 right-5 cursor-pointer text-[#00000061]' onClick={() => setHidePassword(!hidePassword)}>
                             <FaUser />
@@ -102,7 +102,7 @@ const Index = () => {
                             placeholder="yourmail"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className={`p-5 bg-[#3333330F] w-full ${errors.user_name === undefined ? `border-[#00000061] border-b` : `border-error border-b-2`}  placeholder:text-black rounded-tr rounded-tl focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary`}
+                            className={`p-5 bg-[#3333330F] w-full ${errors.user_name === undefined ? `border-[#00000061] border-t-0 border-l-0 border-r-0` : `border-error border-t-0 border-l-0 border-r-0 border-b-2`}  placeholder:text-black rounded-tr rounded-tl focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary`}
                         />
                         <label htmlFor="" className='absolute bottom-5 right-5 cursor-pointer text-[#00000061]' onClick={() => setHidePassword(!hidePassword)}>
                             @gmail.com
@@ -119,7 +119,7 @@ const Index = () => {
                             placeholder="absdgr&#"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className={`p-5 bg-[#3333330F] w-full ${errors.user_name === undefined ? `border-[#00000061] border-b` : `border-error border-b-2`} placeholder:text-black rounded-tr rounded-tl focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary`}
+                            className={`p-5 bg-[#3333330F] w-full ${errors.user_name === undefined ? `border-[#00000061] border-t-0 border-l-0 border-r-0` : `border-error border-t-0 border-l-0 border-r-0 border-b-2`} placeholder:text-black rounded-tr rounded-tl focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary`}
                         />
                         {
                             password !== '' && (
