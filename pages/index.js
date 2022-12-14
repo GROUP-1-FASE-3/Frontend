@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Footer from '../Components/Footer'
 import Navbar from '../Components/Navbar'
+import HomePage from './home'
 
 export default function Home() {
   return (
@@ -11,11 +12,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        {/* <h1 className='text-3xl font-bold'>AirBnB KW</h1>
-        <Card /> */}
-        <Navbar />
+        <HomePage />
       </main>
-      <Footer />
     </div>
   )
 }

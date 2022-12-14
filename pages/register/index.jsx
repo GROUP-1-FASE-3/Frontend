@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import AuthPage from '../../Components/AuthPage';
-import {IoEye, IoEyeOff} from 'react-icons/io5';
-import {FaUser} from 'react-icons/fa';
+import { IoEye, IoEyeOff } from 'react-icons/io5';
+import { FaUser } from 'react-icons/fa';
 import api from '../../services/api';
 
 const Index = () => {
@@ -10,8 +10,8 @@ const Index = () => {
     const [password, setPassword] = useState('');
     const [hidePassword, setHidePassword] = useState(true);
 
-    const onRegisterHandler = async() => {
-        await api.register({username, email, password})
+    const onRegisterHandler = async () => {
+        await api.register({ username, email, password })
             .then(response => {
                 console.log(response.data)
             })
@@ -41,7 +41,7 @@ const Index = () => {
                             placeholder="your username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            className="p-5 w-full bg-[#3333330F] w-full border-b border-[#00000061] placeholder:text-black rounded-tr rounded-tl focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary"
+                            className="p-5 bg-[#3333330F] w-full border-b border-[#00000061] placeholder:text-black rounded-tr rounded-tl focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary"
                         />
                         <label htmlFor="" className='absolute text-2xl bottom-5 right-5 cursor-pointer text-[#00000061]' onClick={() => setHidePassword(!hidePassword)}>
                             <FaUser />
@@ -58,7 +58,7 @@ const Index = () => {
                             placeholder="yourmail"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="p-5 w-full bg-[#3333330F] w-full border-b border-[#00000061] placeholder:text-black rounded-tr rounded-tl focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary"
+                            className="p-5  bg-[#3333330F] w-full border-b border-[#00000061] placeholder:text-black rounded-tr rounded-tl focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary"
                         />
                         <label htmlFor="" className='absolute bottom-5 right-5 cursor-pointer text-[#00000061]' onClick={() => setHidePassword(!hidePassword)}>
                             @gmail.com
@@ -79,7 +79,7 @@ const Index = () => {
                         {
                             password !== '' && (
                                 <label htmlFor="" className='absolute bottom-5 right-5 cursor-pointer text-2xl' onClick={() => setHidePassword(!hidePassword)}>
-                                   {hidePassword ? <IoEye /> : <IoEyeOff />}
+                                    {hidePassword ? <IoEye /> : <IoEyeOff />}
                                 </label>
                             )
                         }
