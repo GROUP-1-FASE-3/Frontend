@@ -14,7 +14,8 @@ module.exports = {
       'bg-stay': '#F5F5F5',
       'black': '#000000',
       'white': '#ffffff',
-      'yellow-star': '#FF9900'
+      'yellow-star': '#FF9900',
+      'error' : '#ff0a1f',
     },
     screens: {
       'xs': '300px',
