@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 const instance = axios.create({
-    baseURL: `https://virtserver.swaggerhub.com/RAMADINAAINIRIZKI/GP3K1/1.0.0`,
+    baseURL: `http://18.141.230.182:80`,
 });
 
 
