@@ -1,7 +1,7 @@
 import React from 'react'
 import ModalEditProfile from './ModalEditProfile'
 
-const FormProfile = () => {
+const FormProfile = ({ full_name, gender, email, phone_number }) => {
     return (
         <div className='my-20 container mx-auto'>
             <h1 className='font-bold text-3xl text-stay-primary'>Personal Info</h1>
@@ -11,25 +11,25 @@ const FormProfile = () => {
                         <label className="label" htmlFor='fullName'>
                             <span className="label-text text-stay-primary text-xl">Full Name</span>
                         </label>
-                        <input value="Gilang" disabled type="text" placeholder="Type here" className="input input-bordered w-full lg:w-10/12 " />
+                        <input value={full_name} disabled type="text" placeholder="Type here" className="input input-bordered w-full lg:w-10/12 " />
                     </div>
                     <div>
                         <label className="label">
                             <span className="label-text text-stay-primary text-xl">Gender</span>
                         </label>
-                        <input value="Laki-Laki" disabled type="text" placeholder="Type here" className="input input-bordered w-full lg:w-10/12 " />
+                        <input disabled type="text" placeholder="Type here" className="input input-bordered w-full lg:w-10/12 " />
                     </div>
                     <div>
                         <label className="label">
-                            <span className="label-text text-stay-primary text-xl">Email Address</span>
+                            <span className="label-text text-stay-primary text-xl">Email</span>
                         </label>
-                        <input value="gilang@gmail.com" disabled type="text" placeholder="Type here" className="input input-bordered w-full lg:w-10/12 " />
+                        <input disabled type="text" placeholder="Type here" className="input input-bordered w-full lg:w-10/12 " />
                     </div>
                     <div>
                         <label className="label">
                             <span className="label-text text-stay-primary text-xl">Phone Number</span>
                         </label>
-                        <input value="08211139454" disabled type="text" placeholder="Type here" className="input input-bordered w-full lg:w-10/12 " />
+                        <input disabled type="text" placeholder="Type here" className="input input-bordered w-full lg:w-10/12 " />
                     </div>
                     <div>
                         <ModalEditProfile />

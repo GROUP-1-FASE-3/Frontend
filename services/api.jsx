@@ -1,19 +1,24 @@
 import axios from "axios";
 
+
 const instance = axios.create({
+
     baseURL : `http://18.141.230.182:80/`
 })
 
+
+
 export default {
-    login: ({email, password}) => 
+    login: ({ email, password }) =>
         instance({
             method: `POST`,
             url: `auth`,
             data: {
                 email: email,
                 password: password,
-            }
+            },
         }),
+
     register: ({user_name, email, password, gender, phone_number, user_images}) => 
         instance({
             method: `POST`,
@@ -28,3 +33,14 @@ export default {
             }
         })
 }
+            },
+        }),
+    getUser: ({ token, id }) =>
+        instance({
+            method: `GET`,
+            url: `users/${id}`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }),
+};

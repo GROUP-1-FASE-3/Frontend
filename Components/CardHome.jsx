@@ -5,7 +5,7 @@ const CardHome = () => {
     return (
         <div className="card-compact w-full bg-base-100">
             <figure className='relative w-[175px] h-[120px] md:w-[280px] md:h-[150px] rounded-2xl'>
-                <Image src="/images/card-picture.png" fill className='rounded-2xl' />
+                <Image src="/images/card-picture.png" fill className='rounded-2xl' alt='imgCard' />
             </figure>
             <div className="">
                 <div className="flex items-center mt-3 text-yellow-400">
