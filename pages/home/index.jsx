@@ -4,11 +4,20 @@ import Navbar from '../../Components/Navbar'
 import Image from 'next/image';
 import { GoLocation } from 'react-icons/go'
 import CardHome from '../../Components/CardHome';
+import HeroComponent from '../../Components/HeroComponent';
 
 const HomePage = () => {
     return (
-        <div>
+        <div className='max-w-screen'>
             <Navbar />
+
+            <HeroComponent
+                title={<h1 className='text-4xl text-stay-primary font-bold'>Some of your best ideas<br /> come when<br /> you're on Staycation. </h1>}
+                desc={<p className='text-blue-200 mt-5 text-stay-grey text-xl'>We provide what you need to enjoy your<br />holiday with family. Time to make another<br />memorable moments.</p>}
+                button='Show Me Now'
+                imgSrc='/images/picture.png'
+            />
+
             <div className='mt-10 md:container pl-12 md:mx-auto md:px-12 lg:px-20'>
                 <div className='flex flex-col md:flex-row gap-12 justify-between'>
                     <div className='order-2 md:order-1'>
@@ -25,6 +34,7 @@ const HomePage = () => {
                     </div>
                 </div>
             </div>
+
             <div className='mt-20'>
                 <h1 className='text-xl ml-20 pl-20 text-blue-900 font-bold text-stay-primary'>Most Rated</h1>
                 <div className='flex justify-center items-center mt-10'>
