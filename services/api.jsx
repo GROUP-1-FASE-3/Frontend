@@ -18,7 +18,7 @@ export default {
                 password: password,
             },
         }),
-
+    //user
     register: ({user_name, email, password, gender, phone_number, user_images}) => 
         instance({
             method: `POST`,
@@ -30,9 +30,6 @@ export default {
                 gender: gender,
                 phone_number: phone_number,
                 user_images: user_images
-            }
-        })
-}
             },
         }),
     getUser: ({ token, id }) =>
