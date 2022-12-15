@@ -1,9 +1,8 @@
-import axios from "axios";
-
+import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: `https://rubahmerah.site/`
-})
+  baseURL: `https://rubahmerah.site/`,
+});
 
 export default {
     login: ({ email, password }) =>
@@ -52,17 +51,16 @@ export default {
                 phone_number: phone_number,
             }
         }),
+  //villa
+  getVillaById: (token, id) =>
+    instance({
+      method: `GET`,
+      url: `villas/${id}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
 
-    getReservation: (token) =>
-        instance({
-            method: `GET`,
-            url: `reservations`,
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        }),
-
-    //villa
     getVillas: (token) =>
         instance({
             method: `GET`,
@@ -99,6 +97,14 @@ export default {
                 user_id: user_id
             }
         }),
+    getVillaUser: (token) =>
+        instance({
+            method: `GET`,
+            url: `villas/user`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }),
     
     //credit card
     getCard: (token, id_user) =>
@@ -133,14 +139,6 @@ export default {
             method: `DELETE`,
             url: `creditcards/${id}`,
         }),
-    getVillaUser: (token) =>
-        instance({
-            method: `GET`,
-            url: `villas/user`,
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        }),
 
     deleteVillaUser: (token, id) =>
         instance({
@@ -151,7 +149,6 @@ export default {
             },
             data: { id: id },
         })
-};
 
 };  
 
