@@ -14,6 +14,16 @@ import Cookies from 'js-cookie';
 import { useState } from 'react';
 import Swal from 'sweetalert2';
 import Router from 'next/router';
+import DatePickers from '../../Components/DatePicker';
+
+
+const [value, setValue] = useState({
+  startDate: new Date(),
+  endDate: new Date().setMonth(11),
+});
+
+const start_date = value.startDate;
+const end_date = value.endDate;
 
 const myLoader = ({ src }) => {
   return `${src}`;
@@ -30,13 +40,6 @@ function DetailPage({ villa }) {
     });
   };
 
-  const [value, setValue] = useState({
-    startDate: new Date(),
-    endDate: new Date().setMonth(11),
-  });
-
-  const start_date = value.startDate;
-  const end_date = value.endDate;
 
   const handleValueChange = (newValue) => {
     console.log('newValue:', newValue);
@@ -73,11 +76,11 @@ function DetailPage({ villa }) {
   };
 
   return (
-    <div className="max-w-screen flex-wrap">
-      <div className=" m-20">
-        <Navbar />
+    <div className="max-w-screen">
+      <Navbar />
+      <div className="container mx-auto py-px-20">
         <section>
-          <div className=" mt-10 py-2.5 bottom-0  bg-blue-400 text-primary text-left">
+          <div className="mt-10 py-2.5 bottom-0  bg-blue-400 text-primary text-left">
             <div className="flex items-center mb-3">
               <svg aria-hidden="true" className="w-5 h-5 text-yellow-star" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <title>First star</title>
@@ -141,7 +144,7 @@ function DetailPage({ villa }) {
             </div>
           </div>
 
-          <div className="grid grid-cols grid-row-2  ">
+          <div className="grid grid-cols grid-row-2 ">
             <div className=" flex justify-center">
               <div className="card w-96 bg-base-100 shadow-md">
                 <div className="card-body justify-content-center mb-5 ">
@@ -155,7 +158,7 @@ function DetailPage({ villa }) {
                     how long will you stay? <DatePicker />
                   </p> */}
                   <p className="text-primary font-medium text-xs mb-0">
-                    pick a date <DatePicker value={value} handleValueChange={handleValueChange} />
+                    pick a date <DatePickers value={value} handleValueChange={handleValueChange} />
                   </p>
                   <button onClick={(onPayment) => getReservationData()} className=" justify-coontent-center btn bg-stay-secondary border-none mt-3 mb-3 md:w-[210px] sm:w-[110px] font-medium md:text-md sm:text-xs">
                     Continue to Book
