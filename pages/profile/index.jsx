@@ -11,12 +11,11 @@ import Link from 'next/link'
 const index = () => {
 
   const [user, setUser] = useState([]);
-  const [cookie] = useCookies(["userToken"]);
   const currentUsers = useSelector((state) => state.users.currentUser)
 
   const getDataUser = async () => {
     await api
-      .getUser(cookie.userToken, currentUsers.id)
+      .getUser(localStorage.getItem('userToken'), currentUsers.id)
       .then((response) => {
         const result = response.data.data
         setUser(result);
@@ -38,7 +37,7 @@ const index = () => {
         {user ? (
           <FormProfile
             full_name={user.user_name}
-            email={user.email}
+            emails={user.email}
             phone_number={user.phone_number}
             gender={user.gender}
           />

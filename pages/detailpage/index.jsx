@@ -5,9 +5,9 @@ import detail1 from '../../src/images/img-details-1.png';
 import detail2 from '../../src/images/img-details-2.png';
 function DetailPage() {
   return (
-    <div className=" m-20">
+    <div>
       <Navbar />
-      <section>
+      <div className='container mx-auto px-py-20'>
         <div className="pt-6">
           <h3 className="text-xl font-semibold text-primary pb-5">Alterra Villa Indah</h3>
           <p className=" text-xs text-secondary font-extralight"> Jl. Dr. Setiabudi No.430 , Ledeng, Kecamatan Cidadap, Jawa Barat, Setiabudi, Bandung, Jawa Barat, Indonesia, 40143</p>
@@ -21,7 +21,7 @@ function DetailPage() {
             <Image src={detail2} alt="image 1" className="w-1/2 " width={487} height={245} />
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 }
