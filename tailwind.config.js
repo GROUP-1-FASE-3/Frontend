@@ -4,10 +4,7 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     colors: {
       'stay-primary': '#152C5B',
@@ -27,17 +24,17 @@ module.exports = {
     textColor: {
       primary: '#152C5B',
       secondary: '#B0B0B0',
+      black: '#000000',
+       white: '#ffffff',
       'stay-secondary': '#3252DF',
-      'black': '#000000',
-      'white': '#ffffff',
       'yellow-star': '#FF9900',
-      'error' : '#ff0a1f',
+      error: '#ff0a1f',
     },
     // screens: {
     //   xs: '300px',
     // },
     screens: {
-      'xs': '300px',
+      xs: '300px',
       ...defaultTheme.screens,
     },
     extend: {
@@ -46,8 +43,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require("daisyui"),
-    require('@tailwindcss/forms')
-  ],
-}
+  plugins: [require('daisyui'), require('@tailwindcss/forms')],
+};
