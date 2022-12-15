@@ -141,5 +141,17 @@ export default {
                 Authorization: `Bearer ${token}`,
             },
         }),
+
+    deleteVillaUser: (token, id) =>
+        instance({
+            method: `DELETE`,
+            url: `villas/${id}`,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            data: { id: id },
+        })
+};
+
 };  
 
