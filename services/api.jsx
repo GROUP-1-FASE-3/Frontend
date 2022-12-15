@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: `https://rubahmerah.site/`,
+    baseURL: `https://rubahmerah.site/`,
 });
 
 export default {
@@ -51,15 +51,15 @@ export default {
                 phone_number: phone_number,
             }
         }),
-  //villa
-  getVillaById: (token, id) =>
-    instance({
-      method: `GET`,
-      url: `villas/${id}`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }),
+    //villa
+    getVillaById: (token, id) =>
+        instance({
+            method: `GET`,
+            url: `villas/${id}`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }),
 
     getVillas: (token) =>
         instance({
@@ -105,7 +105,7 @@ export default {
                 Authorization: `Bearer ${token}`,
             },
         }),
-    
+
     //credit card
     getCard: (token, id_user) =>
         instance({
@@ -116,7 +116,7 @@ export default {
                 'content-type': 'multipart/form-data'
             },
         }),
-    addCard: (token, {type, name, number, cvv, month, year, user_id}) =>
+    addCard: (token, { type, name, number, cvv, month, year, user_id }) =>
         instance({
             method: `POST`,
             url: `creditcards`,
@@ -125,13 +125,13 @@ export default {
                 'content-type': 'multipart/form-data'
             },
             data: {
-                type : type, 
-                name : name,
-                number : number, 
-                cvv : cvv, 
-                month: month, 
-                year : year, 
-                user_id : user_id
+                type: type,
+                name: name,
+                number: number,
+                cvv: cvv,
+                month: month,
+                year: year,
+                user_id: user_id
             }
         }),
     deleteCreditCard: (token, id) =>
@@ -148,7 +148,17 @@ export default {
                 Authorization: `Bearer ${token}`
             },
             data: { id: id },
-        })
+        }),
+    getReservation: ({ villa_id, start_date, end_date, }) =>
+        instance({
+            method: `POST`,
+            url: `reservations/check`,
+            data: {
+                villa_id: villa_id,
+                start_date: start_date,
+                end_date: end_date,
+            },
+        }),
 
-};  
+};
 
