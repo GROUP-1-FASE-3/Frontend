@@ -37,7 +37,7 @@ const index = () => {
         {user ? (
           <FormProfile
             full_name={user.user_name}
-            email={user.email}
+            emails={user.email}
             phone_number={user.phone_number}
             gender={user.gender}
           />

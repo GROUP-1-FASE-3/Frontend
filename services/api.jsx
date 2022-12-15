@@ -2,11 +2,8 @@ import axios from "axios";
 
 
 const instance = axios.create({
-
-    baseURL: `http://18.141.230.182:80/`
+    baseURL: `https://rubahmerah.site/`
 })
-
-
 
 export default {
     login: ({ email, password }) =>
@@ -40,8 +37,8 @@ export default {
                 Authorization: `Bearer ${token}`,
             },
         }),
-        
-     getReservation: (token) =>
+
+    getReservation: (token) =>
         instance({
             method: `GET`,
             url: `reservations`,
@@ -58,7 +55,7 @@ export default {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
-        }), 
+        }),
     AddVilla: (token, { villa_name, price, description,
         address, villa_image1, villa_image2, villa_image3,
         detail_guest, detail_bedroom, detail_bed, detail_kitchen,
@@ -68,7 +65,7 @@ export default {
             url: `villas`,
             headers: {
                 Authorization: `Bearer ${token}`,
-                'content-type':'multipart/form-data'
+                'content-type': 'multipart/form-data'
             },
             data: {
                 villa_name: villa_name,
@@ -84,7 +81,21 @@ export default {
                 detail_kitchen: detail_kitchen,
                 detail_pool: detail_pool,
                 detail_wifi: detail_wifi,
-                user_id : user_id
+                user_id: user_id
             }
-        })
+        }),
+    editProfile: (token, id, { user_name, email, password, users_image }) =>
+        instance({
+            method: `PUT`,
+            url: `users/${id}`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            data: {
+                user_name: user_name,
+                email: email,
+                password: password,
+                users_image: users_image
+            }
+        }),
 };
