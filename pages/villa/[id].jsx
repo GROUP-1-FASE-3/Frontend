@@ -16,22 +16,20 @@ import Swal from 'sweetalert2';
 import Router from 'next/router';
 import DatePickers from '../../Components/DatePicker';
 
-
-const [value, setValue] = useState({
-  startDate: new Date(),
-  endDate: new Date().setMonth(11),
-});
-
-const start_date = value.startDate;
-const end_date = value.endDate;
-
 const myLoader = ({ src }) => {
   return `${src}`;
 };
 
 function DetailPage({ villa }) {
-  console.log(villa);
-  const villa_id = villa.id;
+
+  const [value, setValue] = useState({
+    startDate: new Date(),
+    endDate: new Date().setMonth(11),
+  });
+  const start_date = value.startDate;
+  const end_date = value.endDate;
+
+  const villa_id = parseInt(villa.id);
 
   const onPayment = () => {
     Router.push({
@@ -66,6 +64,7 @@ function DetailPage({ villa }) {
       })
 
       .catch((error) => {
+        console.log(error)
         Swal.fire({
           position: 'center',
           icon: 'error',

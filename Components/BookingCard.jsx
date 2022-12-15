@@ -1,12 +1,12 @@
 import React from 'react';
 import Image from 'next/image';
-import detail1 from '../../Frontend/src/images/img-booking.png';
+// import detail1 from '../../Frontend/src/images/img-booking.png';
 const BookingCard = () => {
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
       <div className="card w-96 bg-base-100 shadow-xl">
         <figure className="mx-10 mt-10">
-          <Image src={detail1} alt="image 1 " />
+          {/* <Image src={detail1} alt="image 1 " /> */}
         </figure>
         <div className="card-body ">
           <div className="grid grid-cols-2 mt-2 ">

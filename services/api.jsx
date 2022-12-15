@@ -189,6 +189,7 @@ export default {
             headers: {
                 Authorization: `Bearer ${token}`,
                 'content-type': 'multipart/form-data'
+            }
         }),
 
     deleteVillaUser: (token, id) =>
@@ -201,10 +202,13 @@ export default {
             data: { id: id },
         }),
 
-    getReservation: ({ villa_id, start_date, end_date, }) =>
+    getReservation: (token, { villa_id, start_date, end_date, }) =>
         instance({
             method: `POST`,
             url: `reservations/check`,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
             data: {
                 villa_id: villa_id,
                 start_date: start_date,
