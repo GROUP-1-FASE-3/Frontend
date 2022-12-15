@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Footer from '../../Components/Footer'
 import Navbar from '../../Components/Navbar'
 import Image from 'next/image';
-import { GoLocation } from 'react-icons/go'
+import { GoLocation } from 'react-icons/go';
 import CardHome from '../../Components/CardHome';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
@@ -136,10 +136,9 @@ const HomePage = () => {
                     <Footer />
                 </>
             }
-
         </div>
-    )
-}
+  );
+};
 
 // export async function getServerSideProps({req}) {
 //     const token = req.cookies.userToken;

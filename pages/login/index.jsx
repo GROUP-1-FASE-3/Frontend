@@ -52,11 +52,11 @@ const LoginPage = () => {
         e.preventDefault();
     }
     useEffect(() => {
-         if (localStorage.getItem('userToken')) {
+        if (localStorage.getItem('userToken')) {
 
-         } else {
-             console.log('kosong')
-         }
+        } else {
+            console.log('kosong')
+        }
     }, [Cookies.userToken])
 
     return (

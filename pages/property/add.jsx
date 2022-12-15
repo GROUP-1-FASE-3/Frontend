@@ -64,7 +64,6 @@ const AddPage = () => {
         }
     };
 
-
     const AddVillaHandler = async () => {
         const data = new FormData();
 

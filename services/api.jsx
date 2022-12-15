@@ -116,6 +116,7 @@ export default {
             url: `creditcards`,
             headers: {
                 Authorization: `Bearer ${token}`,
+                'content-type': 'multipart/form-data'
             },
             data: {
                 type : type, 
@@ -131,6 +132,11 @@ export default {
         instance({
             method: `DELETE`,
             url: `creditcards/${id}`,
+        }),
+    getVillaUser: (token) =>
+        instance({
+            method: `GET`,
+            url: `villas/user`,
             headers: {
                 Authorization: `Bearer ${token}`,
             },

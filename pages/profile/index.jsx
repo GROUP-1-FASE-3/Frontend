@@ -11,6 +11,7 @@ import Link from 'next/link'
 const index = () => {
 
   const [user, setUser] = useState([]);
+  const [userVilla, setUserVilla] = useState([])
   const currentUsers = useSelector((state) => state.users.currentUser)
 
   const getDataUser = async () => {
@@ -25,10 +26,23 @@ const index = () => {
       });
   };
 
+  const getVillaUser = async () => {
+    await api.getVillaUser(localStorage.getItem('userToken'))
+      .then(response => {
+        const data = response.data.data
+        console.log('data', data)
+        setUserVilla(data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
   useEffect(() => {
     getDataUser();
+    getVillaUser()
   }, []);
-  console.log('this ', user)
+  console.log('this ', userVilla)
 
   return (
     <div className="bg-white">
@@ -38,6 +52,9 @@ const index = () => {
           <FormProfile
             full_name={user.user_name}
             emails={user.email}
+            phone_numbers={user.phone_number}
+            genders={user.gender}
+            images={user.user_images}
             phone_number_info={user.phone_number}
             gender_info={user.gender}
           />
