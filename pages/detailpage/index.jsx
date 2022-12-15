@@ -9,7 +9,7 @@ function DetailPage() {
       <Navbar />
       <section>
         <div className="pt-6">
-          <h3 className="text-md font-semibold text-primary pb-5">Alterra Villa Indah</h3>
+          <h3 className="text-xl font-semibold text-primary pb-5">Alterra Villa Indah</h3>
           <p className=" text-xs text-secondary font-extralight"> Jl. Dr. Setiabudi No.430 , Ledeng, Kecamatan Cidadap, Jawa Barat, Setiabudi, Bandung, Jawa Barat, Indonesia, 40143</p>
           <Image src={star} alt="5 star" width={195} height={27.48} />
         </div>

@@ -1,10 +1,10 @@
 import Image from 'next/image';
-import detail1 from '../../src/images/img-details-1.png';
+// import detail1 from '../../src/images/img-details-1.png';
 const FirstForm = ({ formValues, onChange }) => {
   return (
     <div className="w-1/2 justify-center mx-auto">
       <div className="cols ">
-        <Image src={detail1} alt="image 1" className="w-1/2  " width={643} height={500} />
+        {/* <Image src={detail1} alt="image 1" className="w-1/2  " width={643} height={500} /> */}
       </div>
       <form className="bg-white shadow-md  px-24 pt-16 pb-10 mb-8 rounded-md">
         <div className="grid gap-4 place-content-center items-center">
