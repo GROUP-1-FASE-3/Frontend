@@ -7,20 +7,20 @@ import CardHome from '../../Components/CardHome';
 import { useRouter } from 'next/router';
 import { useCookies } from 'react-cookie';
 import { useSelector } from 'react-redux';
+import api from '../../services/api';
+import Cookies from 'js-cookie';
+import axios from 'axios';
 
-
-const HomePage = () => {
-
-    const [cookie] = useCookies(['userToken'])
+const HomePage = ({ villas }) => {
     const router = useRouter()
     const currentUsers = useSelector((state) => state.users.currentUser)
-    console.log('tet', currentUsers)
-
+    // console.log('tet', currentUsers)
+    console.log(villas)
     useEffect(() => {
         if (!localStorage.getItem('userToken')) {
             router.push('/login')
         }
-    }, [cookie.userToken])
+    }, [Cookies.get('userToken')])
 
     return (
         <div className='max-w-screen'>
@@ -69,9 +69,13 @@ const HomePage = () => {
                 <h1 className='text-xl mx-auto ml-20 pl-20 text-blue-900 font-bold text-stay-primary'>Hotels with large living room</h1>
                 <div className='flex justify-center items-center mt-10'>
                     <div className='flex gap-4 md:gap-12 flex-auto'>
-                        <CardHome />
-                        <CardHome />
-                        <CardHome />
+                        <div className="grid grid-cols-4 gap-y-10 gap-x-5">
+                            {
+                                villas.map(villa => (
+                                    <CardHome address={villa.address} price={villa.price} villa_name={villa.vila_name} key={villa.id} imgUrl={villa.villa_images1} />
+                                ))
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
@@ -96,6 +100,17 @@ const HomePage = () => {
             <Footer />
         </div>
     )
+}
+
+export async function getServerSideProps({ req }) {
+    const token = req.cookies.userToken
+    const result = await api.getVillas(token);
+    const data = await result.data.data
+    return {
+        props: {
+            villas: data
+        }
+    }
 }
 
 export default HomePage
