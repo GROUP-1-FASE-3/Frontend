@@ -1,7 +1,7 @@
 import Navbar from '../../Components/Navbar';
 import Image from 'next/image';
 import { GoLocation } from 'react-icons/go';
-import star from '../../src/images/star.png';
+import api from '../../services/api';
 import detail1 from '../../src/images/img-details-1.png';
 import detail2 from '../../src/images/img-details-2.png';
 import detail3 from '../../src/images/img-details-3.png';
@@ -115,5 +115,14 @@ function DetailPage() {
     </div>
   );
 }
-
+export async function getServerSideProps({ req, params }) {
+  const token = req.cookies.userToken;
+  const result = await api.getVillaById(token, params.id);
+  const data = result.data.data;
+  return {
+    props: {
+      villa: data,
+    },
+  };
+}
 export default DetailPage;
