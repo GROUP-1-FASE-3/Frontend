@@ -18,7 +18,6 @@ const CreditCard = ({ creditCards }) => {
     const [months, setMonth] = useState('');
     const [years, setYear] = useState('');
     const [errors, setErrors] = useState({});
-    const [cards, setCards] = useState([]);
 
     let schema = Yup.object().shape({
         name: Yup.string().required('Name is required'),

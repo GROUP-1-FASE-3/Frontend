@@ -71,6 +71,7 @@ export default {
                 Authorization: `Bearer ${token}`,
             },
         }),
+
     AddVilla: (token, { villa_name, price, description,
         address, villa_image1, villa_image2, villa_image3,
         detail_guest, detail_bedroom, detail_bed, detail_kitchen,
@@ -99,7 +100,62 @@ export default {
                 user_id: user_id
             }
         }),
-    
+
+    getVillaUser: (token) =>
+        instance({
+            method: `GET`,
+            url: `villas/user`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }),
+
+    deleteVilla: (token, id) =>
+        instance({
+            method: `DELETE`,
+            url: `villa/${id}`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }),
+
+    getVillaById: (token, id) =>
+        instance({
+            method: `GET`,
+            url: `villas/${id}`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }),
+
+    updateVilla: (token, id,{ villa_name, price, description,
+        address, villa_image1, villa_image2, villa_image3,
+        detail_guest, detail_bedroom, detail_bed, detail_kitchen,
+        detail_pool, detail_wifi, user_id }) =>
+        instance({
+            method: `PUT`,
+            url: `villas/${id}`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'content-type': 'multipart/form-data'
+            },
+            data: {
+                villa_name: villa_name,
+                price: price,
+                description: description,
+                address: address,
+                villa_image1: villa_image1,
+                villa_image2: villa_image2,
+                villa_image3: villa_image3,
+                detail_guest: detail_guest,
+                detail_bedroom: detail_bedroom,
+                detail_bed: detail_bed,
+                detail_kitchen: detail_kitchen,
+                detail_pool: detail_pool,
+                detail_wifi: detail_wifi,
+                user_id: user_id
+            }
+        }),
     //credit card
     getCard: (token, id_user) =>
         instance({
@@ -110,7 +166,7 @@ export default {
                 'content-type': 'multipart/form-data'
             },
         }),
-    addCard: (token, {type, name, number, cvv, month, year, user_id}) =>
+    addCard: (token, { type, name, number, cvv, month, year, user_id }) =>
         instance({
             method: `POST`,
             url: `creditcards`,
@@ -119,27 +175,24 @@ export default {
                 'content-type': 'multipart/form-data'
             },
             data: {
-                type : type, 
-                name : name,
-                number : number, 
-                cvv : cvv, 
-                month: month, 
-                year : year, 
-                user_id : user_id
+                type: type,
+                name: name,
+                number: number,
+                cvv: cvv,
+                month: month,
+                year: year,
+                user_id: user_id
             }
         }),
     deleteCreditCard: (token, id) =>
         instance({
             method: `DELETE`,
             url: `creditcards/${id}`,
-        }),
-    getVillaUser: (token) =>
-        instance({
-            method: `GET`,
-            url: `villas/user`,
             headers: {
                 Authorization: `Bearer ${token}`,
+                'content-type': 'multipart/form-data'
             },
         }),
-};  
+
+};
 
