@@ -35,8 +35,8 @@ const HomePage = () => {
   // console.log(movies)
   // console.log(token)
   const getVillas = async () => {
-    await api
-      .getVillas(token)
+    await api .getVillas(token)
+      
       .then((response) => {
         setVillas(response.data.data);
       })
