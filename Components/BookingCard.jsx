@@ -3,14 +3,34 @@ import Image from 'next/image';
 import detail1 from '../../Frontend/src/images/img-booking.png';
 const BookingCard = () => {
   return (
-    <div className="card-compact w-full bg-base-100 mt-10">
-      <figure className="relative w-full md:w-[280px] md:h-[150px] rounded-2xl">
-        <Image src={detail1} alt="image 1 " />
-        <div className="grid grid-rows-2">
-          <h2 className="card-title font-bold text-sm mt-4">Villa Alterra Indah</h2>
-          <h2 className=" font-thin text-secondary text-xs">Jl. Raya Tidar No.23, Karangbesuki, Kec. Sukun, Kota Malang, Jawa Timur 65146</h2>
+    <div className="card w-96 bg-base-100 shadow-xl">
+      <div className="card w-96 bg-base-100 shadow-xl">
+        <figure className="mx-10 mt-10">
+          <Image src={detail1} alt="image 1 " />
+        </figure>
+        <div className="card-body ">
+          <div className="grid grid-cols-2 mt-2 ">
+            <p className="col">Booking ID</p>
+            <p className="col text-end"> #B2578110AA</p>
+          </div>
+          <div className="grid grid-cols-2 mt-2 ">
+            <p className="col">Purchase Date</p>
+            <p className="col text-end ">31/12/22</p>
+          </div>
+          <div className="grid grid-cols-2 mt-2 ">
+            <p className="col">Room Price</p>
+            <p className="col text-end ">1.945.000</p>
+          </div>
+          <div className="grid grid-cols-2  mt-2 ">
+            <p className="col">Number of Nights</p>
+            <p className="col text-end ">2</p>
+          </div>
+          <div className="grid grid-cols-2  mt-2 ">
+            <p className="col">Number of Rooms</p>
+            <p className="col text-end ">1</p>
+          </div>
         </div>
-      </figure>
+      </div>
     </div>
   );
 };
