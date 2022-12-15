@@ -8,9 +8,10 @@ import detail3 from '../../src/images/img-details-3.png';
 import detail4 from '../../src/images/img-details-4.png';
 import Footer from '../../Components/Footer';
 import DatePicker from '../../Components/DatePicker';
+import FacilitiesCard from '../../Components/FacilitiesCard';
 function DetailPage() {
   return (
-    <div className="max-w-screen">
+    <div className="max-w-screen flex-wrap">
       <div className=" m-20">
         <Navbar />
         <section>
@@ -71,7 +72,7 @@ function DetailPage() {
         </div>
         <div className="grid grid-cols-2 gap-6">
           <div className="col">
-            <div className="grid grid-row-3 gap-4 text-secondary text-thin mt-5">
+            <div className="grid grid-row-3 gap-4 text-secondary font-thin mt-5 md:font-md sm:font-sm">
               <p className="row">
                 Minimal techno is a minimalist subgenre of techno music. It is characterized by a stripped-down aesthetic that exploits the use of repetition and understated development. Minimal techno is thought to have been originally
                 developed in the early 1990s by Detroit-based producers Robert Hood and Daniel Bell.
@@ -86,12 +87,29 @@ function DetailPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 r">
-            <div className=" flex justify-end">
-              <DatePicker />
+          <div className="grid grid-cols grid-row-2  ">
+            <div className=" flex justify-center">
+              <div className="card w-96 bg-base-100 shadow-md">
+                <div className="card-body justify-content-center mb-5 ">
+                  <h2 className="font-bold  ">Start Booking Now</h2>
+                  <div className="grid grid-cols-2 justify-content-center">
+                    <h2 className="font-bold justify-text-end text-xl text-green-600"> Rp 1.259.000</h2>
+                    <h2 className="text-bold justify-text-center text-secondary ">per night</h2>
+                  </div>
+
+                  <p className="text-primary font-medium text-xs mt-5 mb-0">
+                    how long will you stay? <DatePicker />
+                  </p>
+                  <p className="text-primary font-medium text-xs mb-0">
+                    pick a date <DatePicker />
+                  </p>
+                  <button className=" justify-coontent-center btn bg-stay-secondary border-none mt-3 mb-3 md:w-[210px] sm:w-[110px] font-medium md:text-md sm:text-xs">Continue to Book</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <FacilitiesCard />
       </div>
       <Footer />
     </div>
