@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AuthPage from '../../Components/AuthPage';
 import { IoEye, IoEyeOff } from 'react-icons/io5';
 import api from '../../services/api';
-import { useCookies } from 'react-cookie';
+import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { useDispatch } from "react-redux";
 import { updateUser } from '../../store/slice/userSlice';
@@ -12,7 +12,6 @@ const LoginPage = () => {
     const [hidePassword, setHidePassword] = useState(true);
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    const [cookie, setCookie] = useCookies(['userToken'])
     const router = useRouter()
     const dispatch = useDispatch()
 
@@ -31,7 +30,7 @@ const LoginPage = () => {
                 }
                 setEmail('')
                 setPassword('')
-                // setCookie('userToken', data.token)
+                Cookies.set('userToken', data.token)
                 localStorage.setItem('userToken', data.token)
                 dispatch(updateUser(data))
                 router.push('/home')
@@ -51,14 +50,13 @@ const LoginPage = () => {
         onLoginHandler();
         e.preventDefault();
     }
+    useEffect(() => {
+         if (localStorage.getItem('userToken')) {
 
-    // useEffect(() => {
-    //     if (localStorage.getItem('userToken')) {
-
-    //     } else {
-    //         console.log('kosong')
-    //     }
-    // }, [])
+         } else {
+             console.log('kosong')
+         }
+    }, [Cookies.userToken])
 
     return (
         <AuthPage>

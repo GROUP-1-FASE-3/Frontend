@@ -32,7 +32,6 @@ export default {
                 user_images: user_images
             },
         }),
-
     getUser: (token, id) =>
         instance({
             method: `GET`,
@@ -41,8 +40,8 @@ export default {
                 Authorization: `Bearer ${token}`,
             },
         }),
-
-    getReservation: (token) =>
+        
+     getReservation: (token) =>
         instance({
             method: `GET`,
             url: `reservations`,
@@ -50,4 +49,42 @@ export default {
                 Authorization: `Bearer ${token}`,
             },
         }),
+
+    //villa
+    getVillas: (token) =>
+        instance({
+            method: `GET`,
+            url: `villas`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }), 
+    AddVilla: (token, { villa_name, price, description,
+        address, villa_image1, villa_image2, villa_image3,
+        detail_guest, detail_bedroom, detail_bed, detail_kitchen,
+        detail_pool, detail_wifi, user_id }) =>
+        instance({
+            method: `POST`,
+            url: `villas`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'content-type':'multipart/form-data'
+            },
+            data: {
+                villa_name: villa_name,
+                price: price,
+                description: description,
+                address: address,
+                villa_image1: villa_image1,
+                villa_image2: villa_image2,
+                villa_image3: villa_image3,
+                detail_guest: detail_guest,
+                detail_bedroom: detail_bedroom,
+                detail_bed: detail_bed,
+                detail_kitchen: detail_kitchen,
+                detail_pool: detail_pool,
+                detail_wifi: detail_wifi,
+                user_id : user_id
+            }
+        })
 };
