@@ -7,10 +7,15 @@ import Navbar from "../../Components/Navbar";
 import TableBodyProfile from "../../Components/TableBodyProfile";
 import api from '../../services/api';
 import Link from 'next/link'
+import axios from 'axios'
+import { useRouter } from 'next/router'
+import Swal from "sweetalert2";
 
 const index = () => {
 
   const [user, setUser] = useState([]);
+  const [userVilla, setUserVilla] = useState([])
+  const router = useRouter()
   const currentUsers = useSelector((state) => state.users.currentUser)
 
   const getDataUser = async () => {
@@ -25,10 +30,60 @@ const index = () => {
       });
   };
 
+  const getVillaUser = async () => {
+    await api.getVillaUser(localStorage.getItem('userToken'))
+      .then(response => {
+        const data = response.data.data
+        setUserVilla(data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
+  const onDelete = async (id) => {
+    await axios.delete(`https://rubahmerah.site/villas/${id}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` },
+      data: { id: userVilla.id },
+    })
+      .then(response => {
+        if (response) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            text: "Deleted successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          })
+          router.reload(window.location.pathname)
+        }
+      })
+      .catch(error => {
+        // Swal.fire({
+        //   position: "center",
+        //   icon: "error",
+        //   title: { error },
+        //   showConfirmButton: true,
+        // });
+        console.log(error)
+      })
+  }
+
+  // const onDelete = async (id) => {
+  //   await api.deleteVillaUser(localStorage.getItem('userToken'), userVilla.id)
+  //     .then(response => {
+  //       console.log(response)
+  //     })
+  //     .catch(error => {
+  //       console.log(error)
+  //     })
+  // }
+
   useEffect(() => {
     getDataUser();
+    getVillaUser()
   }, []);
-  console.log('this ', user)
+  console.log('this ', userVilla)
 
   return (
     <div className="bg-white">
@@ -38,6 +93,9 @@ const index = () => {
           <FormProfile
             full_name={user.user_name}
             emails={user.email}
+            phone_numbers={user.phone_number}
+            genders={user.gender}
+            images={user.user_images}
             phone_number_info={user.phone_number}
             gender_info={user.gender}
           />
@@ -51,7 +109,33 @@ const index = () => {
               Add new
             </Link>
           </button>
-          <TableBodyProfile />
+          <div className="overflow-x-auto my-20 container mx-auto">
+            <table className="table w-10/12">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>City</th>
+                  <th>Bedroom</th>
+                  <th>Price</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              {userVilla ? (
+                userVilla.map((item) => {
+                  return (
+                    <TableBodyProfile
+                      vila_name={item.vila_name}
+                      address={item.address}
+                      detail_bedroom={item.detail_bedroom}
+                      price={item.price}
+                      onDelete={() => onDelete(item.id)}
+                    />
+                  )
+                })
+              ) : <></>}
+            </table>
+          </div>
         </div>
       </div>
       <Footer />

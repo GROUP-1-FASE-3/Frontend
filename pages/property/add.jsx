@@ -8,6 +8,8 @@ import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
+import Swal from "sweetalert2";
+import { useRouter } from 'next/router'
 
 const AddPage = () => {
     const crop = {
@@ -16,6 +18,7 @@ const AddPage = () => {
         width: "100"
     };
 
+    const router = useRouter()
     const [cookie, setCookie] = useCookies();
     const currentUsers = useSelector((state) => state.users.currentUser)
     const [errors, setErrors] = useState({});
@@ -64,7 +67,6 @@ const AddPage = () => {
         }
     };
 
-
     const AddVillaHandler = async () => {
         const data = new FormData();
 
@@ -93,10 +95,24 @@ const AddPage = () => {
             }
         })
             .then(response => {
-                console.log(response)
+                if (response) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        text: "Added successfully",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                    router.reload(window.location.pathname)
+                }
             })
             .catch(error => {
-                console.log(error)
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: 'Added failed',
+                    showConfirmButton: true,
+                });
             })
         // console.log(data)
     }

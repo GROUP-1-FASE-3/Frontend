@@ -31,6 +31,7 @@ const LoginPage = () => {
                 setEmail('')
                 setPassword('')
                 Cookies.set('userToken', data.token)
+                Cookies.set('user_id', data.id)
                 localStorage.setItem('userToken', data.token)
                 dispatch(updateUser(data))
                 router.push('/home')
@@ -51,11 +52,11 @@ const LoginPage = () => {
         e.preventDefault();
     }
     useEffect(() => {
-         if (localStorage.getItem('userToken')) {
+        if (localStorage.getItem('userToken')) {
 
-         } else {
-             console.log('kosong')
-         }
+        } else {
+            console.log('kosong')
+        }
     }, [Cookies.userToken])
 
     return (
