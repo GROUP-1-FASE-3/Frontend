@@ -60,7 +60,6 @@ const HomePage = () => {
                                 <p className='text-blue-200 mt-5 text-secondary text-xl'>We provide what you need to enjoy your<br />
                                     holiday with family. Time to make another<br />
                                     memorable moments.</p>
-                                <button className='btn bg-stay-secondary border-none mt-5 mb-5 w-[210px]'>Show me Now</button>
                             </div>
                             <div className='order-1 md:order-2'>
                                 <div className='relative w-[300px] h-[300px] md:w-[400px] md:h-[300px] border-none'>
@@ -108,8 +107,8 @@ const HomePage = () => {
                                     <label className='text-end text-lg mr-5 text-black' htmlFor="">{currentPage}/{Math.ceil(villas?.length / userPerPage)}</label>
                                 </div>
                                 <div className='flex'>
-                                    <button disabled={firstDisabled} onClick={() => setCurrentPage(currentPage - 1)} className={`${firstDisabled ? `cursor text-secondary` : `cursor-pointer text-black-default` } text-3xl`}><MdOutlineKeyboardArrowLeft /></button>
-                                    <button disabled={disabled} onClick={() => setCurrentPage(currentPage + 1)} className={`${disabled ? `cursor text-secondary` : `cursor-pointer text-black-default` } text-3xl`}><MdOutlineKeyboardArrowRight /></button>
+                                    <button disabled={firstDisabled} onClick={() => setCurrentPage(currentPage - 1)} className={`${firstDisabled ? `cursor text-secondary` : `cursor-pointer text-black-default`} text-3xl`}><MdOutlineKeyboardArrowLeft /></button>
+                                    <button disabled={disabled} onClick={() => setCurrentPage(currentPage + 1)} className={`${disabled ? `cursor text-secondary` : `cursor-pointer text-black-default`} text-3xl`}><MdOutlineKeyboardArrowRight /></button>
                                 </div>
                             </div>
 
@@ -137,7 +136,7 @@ const HomePage = () => {
                 </>
             }
         </div>
-  );
+    );
 };
 
 // export async function getServerSideProps({req}) {
