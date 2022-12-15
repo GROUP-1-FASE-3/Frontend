@@ -44,7 +44,7 @@ function DetailPage() {
               Bali, Indonesia
             </p>
           </div>
-          <div class="grid grid-cols-2 gap-6 my-10">
+          <div className="grid grid-cols-2 gap-6 my-10">
             <div className="row-span-3">
               <Image src={detail1} alt="image 1" className="w-full  " width={643} height={500} />
             </div>
@@ -52,7 +52,7 @@ function DetailPage() {
               <Image src={detail4} alt="image 1" className="w-full  " width={643} height={400} />
             </div>
           </div>
-          <div class="grid grid-cols-4 gap-6">
+          <div className="grid grid-cols-4 gap-6">
             <div className="col">
               <Image src={detail2} alt="image 1" className="w-full  " width={643} height={500} />
             </div>
