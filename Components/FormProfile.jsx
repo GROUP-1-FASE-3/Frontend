@@ -1,23 +1,80 @@
 import React, { useState } from 'react'
 import api from '../services/api'
 import { useSelector } from "react-redux";
+import axios from 'axios'
+import Swal from "sweetalert2";
+import { useRouter } from 'next/router'
 
-const FormProfile = ({ full_name, genders, emails, phone_numbers }) => {
+const FormProfile = ({ full_name, genders, emails, phone_numbers, images }) => {
 
     const [user_name, setUserName] = useState()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const [gender, setGender] = useState()
     const [phone_number, setPhone] = useState()
-    const [user_image, setUserImage] = useState()
+    const [users_image, setUserImage] = useState()
     const currentUsers = useSelector((state) => state.users.currentUser)
+    const router = useRouter()
+
+
+
+
+
+    // const updateUser = async () => {
+    //     const data = new FormData();
+
+    //     data.append('name', user_name)
+    //     data.append('email', email)
+    //     data.append('password', password)
+    //     data.append('gender', gender)
+    //     data.append('phone', phone_number)
+    //     data.append('image', users_image)
+
+    //     await api.editProfile(localStorage.getItem('userToken'), currentUsers.id, { data })
+    //         .then(response => {
+    //             console.log(response)
+    //         })
+    //         .catch(error => {
+    //             console.log(error)
+    //         })
+    // }
 
     const updateUser = async () => {
-        await api.editProfile(localStorage.getItem('userToken'), currentUsers.id, { user_name, email, password, user_image, gender, phone_number })
+        const data = new FormData();
+
+        data.append('user_name', user_name)
+        data.append('email', email)
+        data.append('password', password)
+        data.append('gender', gender)
+        data.append('phone_number', phone_number)
+        data.append('user_images', users_image)
+
+        await axios.put(`https://rubahmerah.site/users/${currentUsers.id}`, data, {
+            headers: {
+                Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NzEyMDkyMjYsInVzZXJJZCI6NX0.JUtvBQa5WS3E7MnVG19nBdJKY4THcj8ImHrw0-WbhEc`,
+                'content-type': 'multipart/form-data',
+            }
+        })
             .then(response => {
+                if (data) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        text: "Updated successfully",
+                        showConfirmButton: false,
+                        timer: 800,
+                    })
+                    router.reload(window.location.pathname)
+                }
                 console.log(response)
             })
             .catch(error => {
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: { error },
+                    showConfirmButton: true,
+                });
                 console.log(error)
             })
     }
@@ -32,6 +89,9 @@ const FormProfile = ({ full_name, genders, emails, phone_numbers }) => {
             <h1 className='font-bold text-3xl text-stay-primary'>Personal Info</h1>
             <div className='mt-10'>
                 <form>
+                    <div>
+                        <img src={images} alt="profileImg" className='h-[100px] my-6' />
+                    </div>
                     <div>
                         <label className="label" htmlFor='fullName'>
                             <span className="label-text text-stay-primary text-xl">Full Name</span>
@@ -58,14 +118,13 @@ const FormProfile = ({ full_name, genders, emails, phone_numbers }) => {
                     </div>
                 </form>
                 <form
-                    className='my-10 px-10 py-8 bg-white rounded-lg border border-border-primary shadow-xl'
+                    className='my-10 px-10 py-8 bg-white'
                     onSubmit={(e) => handleUpdates(e)}
                 >
                     <div className="flex justify-between">
                         <span className="text-xl font-bold text-stay-primary">
                             Edit Personal Info
                         </span>
-                        <img className=" w-[100px]" src="/images/stay_logo.svg" alt="stay logo" />
                     </div>
                     <div className="flex flex-col text-lg pt-2">
                         <label htmlFor="" className="pb-1">
@@ -120,6 +179,16 @@ const FormProfile = ({ full_name, genders, emails, phone_numbers }) => {
                             className="input input-bordered max-w-2xl w-full bg-white border border-gray-400"
                         />
                     </div>
+                    <div className="flex flex-col w-full pt-2">
+                        <label htmlFor="" className="mb-1">
+                            Choose File
+                        </label>
+                        <input
+                            onChange={(e) => setUserImage(e.target.files)}
+                            type="file"
+                            className="file-input w-full max-w-xs" />
+                    </div>
+
 
                     <div className="flex pt-5 gap-5">
                         <button

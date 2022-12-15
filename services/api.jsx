@@ -87,6 +87,7 @@ export default {
             url: `users/${id}`,
             headers: {
                 Authorization: `Bearer ${token}`,
+                'content-type': 'multipart/form-data'
             },
             data: {
                 user_name: user_name,
@@ -96,5 +97,13 @@ export default {
                 gender: gender,
                 phone_number: phone_number,
             }
+        }),
+    getVillaUser: (token) =>
+        instance({
+            method: `GET`,
+            url: `villas/user`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
         }),
 };
