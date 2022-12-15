@@ -68,7 +68,32 @@ const index = () => {
               Add new
             </Link>
           </button>
-          <TableBodyProfile />
+          <div className="overflow-x-auto my-20 container mx-auto">
+            <table className="table w-10/12">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>City</th>
+                  <th>Bedroom</th>
+                  <th>Price</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              {userVilla ? (
+                userVilla.map((item) => {
+                  return (
+                    <TableBodyProfile
+                      vila_name={item.vila_name}
+                      address={item.address}
+                      detail_bedroom={item.detail_bedroom}
+                      price={item.price}
+                    />
+                  )
+                })
+              ) : <></>}
+            </table>
+          </div>
         </div>
       </div>
       <Footer />
