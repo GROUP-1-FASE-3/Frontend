@@ -59,6 +59,7 @@ const Navbar = () => {
                             <ul className="p-2 bg-[#F5F6F7]">
                                 <li><Link href="/profile">Profile</Link></li>
                                 <li><Link href='/history'>History</Link></li>
+                                <li><Link href='/credit-card'>Payment</Link></li>
                                 <button onClick={() => onLogout()}>LogOut</button>
                             </ul>
                         </li>

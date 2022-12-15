@@ -1,9 +1,8 @@
-import axios from "axios";
-
+import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: `https://rubahmerah.site/`
-})
+  baseURL: `https://rubahmerah.site/`,
+});
 
 export default {
     login: ({ email, password }) =>
@@ -34,17 +33,34 @@ export default {
                 Authorization: `Bearer ${token}`,
             },
         }),
-
-    getReservation: (token) =>
+    editProfile: (token, id, { user_name, email, password, users_image, gender, phone_number }) =>
         instance({
-            method: `GET`,
-            url: `reservations`,
+            method: `PUT`,
+            url: `users/${id}`,
             headers: {
                 Authorization: `Bearer ${token}`,
             },
+            data: {
+                user_name: user_name,
+                email: email,
+                password: password,
+                users_image: users_image,
+                gender: gender,
+                phone_number: phone_number,
+                gender: gender,
+                phone_number: phone_number,
+            }
         }),
+  //villa
+  getVillaById: (token, id) =>
+    instance({
+      method: `GET`,
+      url: `villas/${id}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
 
-    //villa
     getVillas: (token) =>
         instance({
             method: `GET`,
@@ -81,25 +97,6 @@ export default {
                 user_id: user_id
             }
         }),
-    editProfile: (token, id, { user_name, email, password, users_image, gender, phone_number }) =>
-        instance({
-            method: `PUT`,
-            url: `users/${id}`,
-            headers: {
-                Authorization: `Bearer ${token}`,
-                'content-type': 'multipart/form-data'
-            },
-            data: {
-                user_name: user_name,
-                email: email,
-                password: password,
-                users_image: users_image,
-                gender: gender,
-                phone_number: phone_number,
-                gender: gender,
-                phone_number: phone_number,
-            }
-        }),
     getVillaUser: (token) =>
         instance({
             method: `GET`,
@@ -108,6 +105,41 @@ export default {
                 Authorization: `Bearer ${token}`,
             },
         }),
+    
+    //credit card
+    getCard: (token, id_user) =>
+        instance({
+            method: `GET`,
+            url: `creditcards/user?user_id=${id_user}`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'content-type': 'multipart/form-data'
+            },
+        }),
+    addCard: (token, {type, name, number, cvv, month, year, user_id}) =>
+        instance({
+            method: `POST`,
+            url: `creditcards`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'content-type': 'multipart/form-data'
+            },
+            data: {
+                type : type, 
+                name : name,
+                number : number, 
+                cvv : cvv, 
+                month: month, 
+                year : year, 
+                user_id : user_id
+            }
+        }),
+    deleteCreditCard: (token, id) =>
+        instance({
+            method: `DELETE`,
+            url: `creditcards/${id}`,
+        }),
+
     deleteVillaUser: (token, id) =>
         instance({
             method: `DELETE`,
@@ -117,4 +149,6 @@ export default {
             },
             data: { id: id },
         })
-};
+
+};  
+
