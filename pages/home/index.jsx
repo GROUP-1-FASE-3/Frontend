@@ -17,7 +17,7 @@ const HomePage = ({ villas }) => {
     // console.log('tet', currentUsers)
     console.log(villas)
     useEffect(() => {
-        if (!Cookies.get('userToken')) {
+        if (!localStorage.getItem('userToken')) {
             router.push('/login')
         }
     }, [Cookies.get('userToken')])

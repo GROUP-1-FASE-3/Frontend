@@ -6,6 +6,7 @@ import { FaUser } from 'react-icons/fa';
 import api from '../../services/api';
 import * as Yup from 'yup';
 import Router from 'next/router';
+import Swal from "sweetalert2";
 
 const Index = () => {
     const [email, setEmail] = useState('');
@@ -26,7 +27,15 @@ const Index = () => {
     const onRegisterHandler = async () => {
         await api.register({ user_name, email, password, gender, phone_number, user_images })
             .then(response => {
-                alert(response.data)
+                if (response) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        text: "Registered successfully",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                }
                 setEmail('')
                 setPassword('')
                 setUsername('')
@@ -35,7 +44,12 @@ const Index = () => {
                 })
             })
             .catch(error => {
-                alert(error)
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: { error },
+                    showConfirmButton: true,
+                });
             })
     }
 

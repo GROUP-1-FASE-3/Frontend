@@ -1,34 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import AuthPage from '../../Components/AuthPage';
-import Link from 'next/link'
 import { IoEye, IoEyeOff } from 'react-icons/io5';
 import api from '../../services/api';
-// import { useCookies } from 'react-cookie';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { useDispatch } from "react-redux";
 import { updateUser } from '../../store/slice/userSlice';
+import Swal from "sweetalert2";
 
 const LoginPage = () => {
     const [hidePassword, setHidePassword] = useState(true);
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    // const [cookie, setCookie] = useCookies(['userToken'])
     const router = useRouter()
     const dispatch = useDispatch()
 
     const onLoginHandler = async () => {
-        await api.login({email, password})
+        await api.login({ email, password })
             .then(response => {
                 const data = response.data.data
-                console.log(data)
+                if (data) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        text: "Signed successfully",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                }
                 setEmail('')
                 setPassword('')
                 Cookies.set('userToken', data.token)
+                localStorage.setItem('userToken', data.token)
                 dispatch(updateUser(data))
+                router.push('/home')
             })
             .catch(error => {
-                console.log(error.data)
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "Email or Password incorrect",
+                    showConfirmButton: true,
+                });
             })
     }
 
@@ -37,14 +50,13 @@ const LoginPage = () => {
         onLoginHandler();
         e.preventDefault();
     }
-
     useEffect(() => {
-        if (Cookies.get('userToken')) {
-            router.push('/home')
-        } else {
-            console.log('kosong')
-        }
-    }, [Cookies])
+         if (localStorage.getItem('userToken')) {
+
+         } else {
+             console.log('kosong')
+         }
+    }, [Cookies.userToken])
 
     return (
         <AuthPage>
@@ -93,5 +105,4 @@ const LoginPage = () => {
         </AuthPage>
     );
 }
-
 export default LoginPage;

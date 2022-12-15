@@ -40,6 +40,15 @@ export default {
                 Authorization: `Bearer ${token}`,
             },
         }),
+        
+     getReservation: (token) =>
+        instance({
+            method: `GET`,
+            url: `reservations`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }),
 
     //villa
     getVillas: (token) =>
@@ -49,7 +58,7 @@ export default {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
-        }),
+        }), 
     AddVilla: (token, { villa_name, price, description,
         address, villa_image1, villa_image2, villa_image3,
         detail_guest, detail_bedroom, detail_bed, detail_kitchen,
