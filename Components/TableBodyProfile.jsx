@@ -3,6 +3,7 @@ import { MdDeleteForever } from 'react-icons/md';
 import ModalEditProperty from './ModalEditProperty';
 import { BiEditAlt } from 'react-icons/bi';
 
+
 const TableBodyProfile = ({ vila_name, address, detail_bedroom, price, onEdit, onDelete }) => {
     return (
 

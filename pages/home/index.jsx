@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import Footer from '../../Components/Footer'
-import Navbar from '../../Components/Navbar'
+import React, { useEffect, useState } from 'react';
+import Footer from '../../Components/Footer';
+import Navbar from '../../Components/Navbar';
 import Image from 'next/image';
 import { GoLocation } from 'react-icons/go';
 import CardHome from '../../Components/CardHome';
@@ -9,43 +9,50 @@ import { useSelector } from 'react-redux';
 import api from '../../services/api';
 import Cookies from 'js-cookie';
 import { MdOutlineKeyboardArrowRight, MdOutlineKeyboardArrowLeft } from 'react-icons/md';
+import Router from 'next/router';
 
 const HomePage = () => {
-    const router = useRouter()
-    const currentUsers = useSelector((state) => state.users.currentUser)
+    const router = useRouter();
+    const currentUsers = useSelector((state) => state.users.currentUser);
     const [villas, setVillas] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1)
-    const [userPerPage, setUserPerPage] = useState(12)
+    const [currentPage, setCurrentPage] = useState(1);
+    const [userPerPage, setUserPerPage] = useState(12);
     const [loading, setLoading] = useState(true);
 
-    const lastUserIndex = currentPage * userPerPage
-    const firstUserIndex = lastUserIndex - userPerPage
-    const currentUser = villas?.slice(firstUserIndex, lastUserIndex)
+    const lastUserIndex = currentPage * userPerPage;
+    const firstUserIndex = lastUserIndex - userPerPage;
+    const currentUser = villas?.slice(firstUserIndex, lastUserIndex);
     const disabled = currentPage === Math.ceil(villas?.length / userPerPage) ? true : false;
     const firstDisabled = currentPage === 1 ? true : false;
 
     const token = Cookies.get('userToken');
 
+    const onDetail = (id) => {
+        Router.push({
+            pathname: `/villa/${id}`,
+        });
+    };
     // console.log(movies)
     // console.log(token)
     const getVillas = async () => {
         await api.getVillas(token)
-            .then(response => {
+
+            .then((response) => {
                 setVillas(response.data.data);
             })
-            .catch(error => {
-                console.log(error)
-            })
+            .catch((error) => {
+                console.log(error);
+            });
         setLoading(false);
-    }
+    };
 
     // console.log(villas)
     useEffect(() => {
         getVillas();
         if (!localStorage.getItem('userToken')) {
-            router.push('/login')
+            router.push('/login');
         }
-    }, [Cookies.get('userToken')])
+    }, [Cookies.get('userToken')]);
 
     return (
         <div className='max-w-screen'>
@@ -98,7 +105,14 @@ const HomePage = () => {
                         <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-3 gap-y-10 gap-x-7 mt-20">
                             {
                                 currentUser.map(villa => (
-                                    <CardHome address={villa.address} price={villa.price} villa_name={villa.vila_name} key={villa.id} imgUrl={villa.villa_images1} />
+                                    <CardHome
+                                        address={villa.address}
+                                        price={villa.price}
+                                        villa_name={villa.vila_name}
+                                        key={villa.id}
+                                        imgUrl={villa.villa_images1}
+                                        onDetail={() => onDetail(villa.id)}
+                                    />
                                 ))
                             }
                         </div>
@@ -108,8 +122,8 @@ const HomePage = () => {
                                     <label className='text-end text-lg mr-5 text-black' htmlFor="">{currentPage}/{Math.ceil(villas?.length / userPerPage)}</label>
                                 </div>
                                 <div className='flex'>
-                                    <button disabled={firstDisabled} onClick={() => setCurrentPage(currentPage - 1)} className={`${firstDisabled ? `cursor text-secondary` : `cursor-pointer text-black-default` } text-3xl`}><MdOutlineKeyboardArrowLeft /></button>
-                                    <button disabled={disabled} onClick={() => setCurrentPage(currentPage + 1)} className={`${disabled ? `cursor text-secondary` : `cursor-pointer text-black-default` } text-3xl`}><MdOutlineKeyboardArrowRight /></button>
+                                    <button disabled={firstDisabled} onClick={() => setCurrentPage(currentPage - 1)} className={`${firstDisabled ? `cursor text-secondary` : `cursor-pointer text-black-default`} text-3xl`}><MdOutlineKeyboardArrowLeft /></button>
+                                    <button disabled={disabled} onClick={() => setCurrentPage(currentPage + 1)} className={`${disabled ? `cursor text-secondary` : `cursor-pointer text-black-default`} text-3xl`}><MdOutlineKeyboardArrowRight /></button>
                                 </div>
                             </div>
 
@@ -137,7 +151,7 @@ const HomePage = () => {
                 </>
             }
         </div>
-  );
+    );
 };
 
 // export async function getServerSideProps({req}) {
@@ -151,4 +165,4 @@ const HomePage = () => {
 //     }
 //   }
 
-export default HomePage
+export default HomePage;
