@@ -1,6 +1,8 @@
 import React from 'react';
 
-const ModalCreditCard = ({onSubmitCard}) => {
+const ModalCreditCard = ({ onSubmitCard, number, setCVV, setMonth, setName, 
+    setNumber, setType, setYear, name, month, year, type, cvv,
+    errorName, errorCVV, errorMonth, errorNumber, errorType, errorYear }) => {
     return (
         <>
             <input type="checkbox" id="modal-card" className="modal-toggle" />
@@ -8,7 +10,7 @@ const ModalCreditCard = ({onSubmitCard}) => {
                 <label className="modal-box relative" htmlFor="">
                     <label htmlFor="modal-card" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 className="text-lg font-bold">Add New Card</h3>
-                    <form onSubmit={onSubmitCard}>
+                    <form onSubmit={(e)=>onSubmitCard(e)}>
                         <div className="flex gap-5">
                             <div className="form-control w-full">
                                 <label className="label">
@@ -17,23 +19,23 @@ const ModalCreditCard = ({onSubmitCard}) => {
                                 <input
                                     type="text"
                                     placeholder="00000000 000000 000000"
-                                    // value={email}
-                                    // onChange={(e) => setEmail(e.target.value)}
+                                    value={number}
+                                    onChange={(e) => setNumber(e.target.value)}
                                     className="p-5 w-full border-b border-[#00000061] placeholder:text-black rounded-tr rounded-tl focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary"
                                 />
+                                <small className='text-error'>{errorNumber}</small>
                             </div>
                             <div className="form-control w-72">
                                 <label className="label">
                                     <span className="label-text">Type</span>
                                 </label>
-                                <select className="select w-full max-w-xs select-bordered select-lg text-sm">
-                                    <option disabled selected>Choose type card</option>
-                                    <option>Visa</option>
-                                    <option>Master Card</option>
-                                    <option>Bart</option>
-                                    <option>Lisa</option>
-                                    <option>Maggie</option>
+                                <select className="select w-full max-w-xs select-bordered select-lg text-sm" value={type} onChange={(e) => setType(e.target.value)}>
+                                    <option selected>Choose card</option>
+                                    <option value='Visa'>Visa</option>
+                                    <option value='Master Card'>Master Card</option>
+                                    <option value='Genius'>Genius</option>
                                 </select>
+                                <small className='text-error'>{errorType}</small>
                             </div>
                         </div>
                         <div className="flex gap-5">
@@ -44,9 +46,11 @@ const ModalCreditCard = ({onSubmitCard}) => {
                                 <input
                                     type="text"
                                     placeholder="03"
-                                    // onChange={(e) => setEmail(e.target.value)}
+                                    value={month}
+                                    onChange={(e) => setMonth(e.target.value)}
                                     className="p-5 w-full border-b border-[#00000061] placeholder:text-black rounded-tr rounded-tl focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary"
                                 />
+                                <small className='text-error'>{errorMonth}</small>
                             </div>
                             <div className="form-control w-full">
                                 <label className="label">
@@ -55,10 +59,11 @@ const ModalCreditCard = ({onSubmitCard}) => {
                                 <input
                                     type="text"
                                     placeholder="2022"
-                                    // value={email}
-                                    // onChange={(e) => setEmail(e.target.value)}
+                                    value={year}
+                                    onChange={(e) => setYear(e.target.value)}
                                     className="p-5 w-full border-b border-[#00000061] placeholder:text-black rounded-tr rounded-tl focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary"
                                 />
+                                <small className='text-error'>{errorYear}</small>
                             </div>
                             <div className="form-control w-full">
                                 <label className="label">
@@ -67,10 +72,11 @@ const ModalCreditCard = ({onSubmitCard}) => {
                                 <input
                                     type="text"
                                     placeholder="345"
-                                    // value={email}
-                                    // onChange={(e) => setEmail(e.target.value)}
+                                    value={cvv}
+                                    onChange={(e) => setCVV(e.target.value)}
                                     className="p-5 w-full border-b border-[#00000061] placeholder:text-black rounded-tr rounded-tl focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary"
                                 />
+                                <small className='text-error'>{errorCVV}</small>
                             </div>
                         </div>
                         <div className="form-control w-full">
@@ -80,10 +86,11 @@ const ModalCreditCard = ({onSubmitCard}) => {
                             <input
                                 type="text"
                                 placeholder="Yourname"
-                                // value={email}
-                                // onChange={(e) => setEmail(e.target.value)}
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
                                 className="p-5 w-full border-b border-[#00000061] placeholder:text-black rounded-tr rounded-tl focus:outline-none focus:rounded focus:ring-2 focus:ring-stay-primary"
                             />
+                            <small className='text-error'>{errorName}</small>
                         </div>
                         <div className='flex justify-end mt-5'>
                             <button type='submit' className='bg-stay-secondary text-white rounded py-2 px-5'>Save Card</button>

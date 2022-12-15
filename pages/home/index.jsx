@@ -142,15 +142,14 @@ const HomePage = () => {
 }
 
 // export async function getServerSideProps({req}) {
-//     const token = req.cookies.userToken
+//     const token = req.cookies.userToken;
 //     const result = await api.getVillas(token)
-//     // const result = await axios.get('https://api.themoviedb.org/3/movie/now_playing?api_key=4cee0d1f3d660d8d420266c93e1f1e5d&language=en-US&page=1')
-//     const data = await result.data
+//     const data = result.data.data
 //     return {
-//         props: {
-//             movies: data
-//         }
+//       props: {
+//         villa: token
+//       }
 //     }
-// }
+//   }
 
 export default HomePage

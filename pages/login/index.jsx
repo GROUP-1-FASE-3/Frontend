@@ -31,6 +31,7 @@ const LoginPage = () => {
                 setEmail('')
                 setPassword('')
                 Cookies.set('userToken', data.token)
+                Cookies.set('user_id', data.id)
                 localStorage.setItem('userToken', data.token)
                 dispatch(updateUser(data))
                 router.push('/home')

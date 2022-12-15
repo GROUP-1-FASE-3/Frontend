@@ -34,6 +34,24 @@ export default {
                 Authorization: `Bearer ${token}`,
             },
         }),
+    editProfile: (token, id, { user_name, email, password, users_image, gender, phone_number }) =>
+        instance({
+            method: `PUT`,
+            url: `users/${id}`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            data: {
+                user_name: user_name,
+                email: email,
+                password: password,
+                users_image: users_image,
+                gender: gender,
+                phone_number: phone_number,
+                gender: gender,
+                phone_number: phone_number,
+            }
+        }),
 
     getReservation: (token) =>
         instance({
@@ -81,22 +99,34 @@ export default {
                 user_id: user_id
             }
         }),
-    editProfile: (token, id, { user_name, email, password, users_image, gender, phone_number }) =>
+    
+    //credit card
+    getCard: (token, id_user) =>
         instance({
-            method: `PUT`,
-            url: `users/${id}`,
+            method: `GET`,
+            url: `creditcards/user?user_id=${id_user}`,
             headers: {
                 Authorization: `Bearer ${token}`,
+                'content-type': 'multipart/form-data'
+            },
+        }),
+    addCard: (token, {type, name, number, cvv, month, year, user_id}) =>
+        instance({
+            method: `POST`,
+            url: `creditcards`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'content-type': 'multipart/form-data'
             },
             data: {
-                user_name: user_name,
-                email: email,
-                password: password,
-                users_image: users_image,
-                gender: gender,
-                phone_number: phone_number,
-                gender: gender,
-                phone_number: phone_number,
+                type : type, 
+                name : name,
+                number : number, 
+                cvv : cvv, 
+                month: month, 
+                year : year, 
+                user_id : user_id
             }
         }),
-};
+};  
+
