@@ -13,7 +13,7 @@ const FormProfile = ({ full_name, gender_info, emails, phone_number_info }) => {
     const currentUsers = useSelector((state) => state.users.currentUser)
 
     const updateUser = async () => {
-        await api.editProfile(localStorage.getItem('userToken'), currentUsers.id, { user_name, email, password, users_image })
+        await api.editProfile(localStorage.getItem('userToken'), currentUsers.id, { user_name, email, password, users_image, gender, phone_number })
             .then(response => {
                 console.log(response)
             })
