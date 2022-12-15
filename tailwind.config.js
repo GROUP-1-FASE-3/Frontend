@@ -27,6 +27,7 @@ module.exports = {
     textColor: {
       primary: '#152C5B',
       secondary: '#B0B0B0',
+      'stay-secondary': '#3252DF',
       'black': '#000000',
       'white': '#ffffff',
       'yellow-star': '#FF9900',
