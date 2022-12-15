@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import api from '../services/api'
 import { useSelector } from "react-redux";
 import axios from 'axios'
+import Swal from "sweetalert2";
+import { useRouter } from 'next/router'
 
 const FormProfile = ({ full_name, gender_info, emails, phone_number_info, images }) => {
 
@@ -12,6 +14,7 @@ const FormProfile = ({ full_name, gender_info, emails, phone_number_info, images
     const [phone_number, setPhone] = useState()
     const [users_image, setUserImage] = useState()
     const currentUsers = useSelector((state) => state.users.currentUser)
+    const router = useRouter()
 
     const updateUser = async () => {
         const data = new FormData()
@@ -29,12 +32,37 @@ const FormProfile = ({ full_name, gender_info, emails, phone_number_info, images
             }
         })
             .then(response => {
-                console.log(response)
+                if (data) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        text: "Updated successfully",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                    router.reload(window.location.pathname)
+                }
             })
             .catch(error => {
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: 'Updated Failed',
+                    showConfirmButton: true,
+                });
                 console.log(error)
             })
     }
+
+    // const updateUser = async () => {
+    //     await api.editProfile(localStorage.getItem('userToken'), currentUsers.id, { user_name, email, password, users_image, gender, phone_number })
+    //         .then(response => {
+    //             console.log(response)
+    //         })
+    //         .catch(error => {
+    //             console.log(error)
+    //         })
+    // }
 
     const handleUpdates = (e) => {
         e.preventDefault();

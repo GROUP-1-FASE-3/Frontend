@@ -7,11 +7,15 @@ import Navbar from "../../Components/Navbar";
 import TableBodyProfile from "../../Components/TableBodyProfile";
 import api from '../../services/api';
 import Link from 'next/link'
+import axios from 'axios'
+import { useRouter } from 'next/router'
+import Swal from "sweetalert2";
 
 const index = () => {
 
   const [user, setUser] = useState([]);
   const [userVilla, setUserVilla] = useState([])
+  const router = useRouter()
   const currentUsers = useSelector((state) => state.users.currentUser)
 
   const getDataUser = async () => {
@@ -30,13 +34,50 @@ const index = () => {
     await api.getVillaUser(localStorage.getItem('userToken'))
       .then(response => {
         const data = response.data.data
-        console.log('data', data)
         setUserVilla(data)
       })
       .catch(error => {
         console.log(error)
       })
   }
+
+  const onDelete = async (id) => {
+    await axios.delete(`https://rubahmerah.site/villas/${id}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` },
+      data: { id: userVilla.id },
+    })
+      .then(response => {
+        if (response) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            text: "Deleted successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          })
+          router.reload(window.location.pathname)
+        }
+      })
+      .catch(error => {
+        // Swal.fire({
+        //   position: "center",
+        //   icon: "error",
+        //   title: { error },
+        //   showConfirmButton: true,
+        // });
+        console.log(error)
+      })
+  }
+
+  // const onDelete = async (id) => {
+  //   await api.deleteVillaUser(localStorage.getItem('userToken'), userVilla.id)
+  //     .then(response => {
+  //       console.log(response)
+  //     })
+  //     .catch(error => {
+  //       console.log(error)
+  //     })
+  // }
 
   useEffect(() => {
     getDataUser();
@@ -88,6 +129,7 @@ const index = () => {
                       address={item.address}
                       detail_bedroom={item.detail_bedroom}
                       price={item.price}
+                      onDelete={() => onDelete(item.id)}
                     />
                   )
                 })

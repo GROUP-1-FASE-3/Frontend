@@ -2,7 +2,7 @@ import React from 'react'
 import { MdDeleteForever } from 'react-icons/md';
 import ModalEditProperty from './ModalEditProperty';
 
-const TableBodyProfile = ({ vila_name, address, detail_bedroom, price }) => {
+const TableBodyProfile = ({ vila_name, address, detail_bedroom, price, onDelete }) => {
     return (
 
         <tbody>
@@ -12,7 +12,7 @@ const TableBodyProfile = ({ vila_name, address, detail_bedroom, price }) => {
                 <td>{detail_bedroom}</td>
                 <td>{price}</td>
                 <td><a><ModalEditProperty /></a></td>
-                <td><a><MdDeleteForever className='cursor-pointer' /></a></td>
+                <td><a><MdDeleteForever onClick={onDelete} className='cursor-pointer' /></a></td>
             </tr>
         </tbody>
     )
