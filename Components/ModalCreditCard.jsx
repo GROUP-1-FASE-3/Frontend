@@ -44,7 +44,7 @@ const ModalCreditCard = ({ onSubmitCard, number, setCVV, setMonth, setName,
                                     <span className="label-text">Month</span>
                                 </label>
                                 <input
-                                    type="text"
+                                    type="number"
                                     placeholder="03"
                                     value={month}
                                     onChange={(e) => setMonth(e.target.value)}
@@ -57,7 +57,7 @@ const ModalCreditCard = ({ onSubmitCard, number, setCVV, setMonth, setName,
                                     <span className="label-text">Year</span>
                                 </label>
                                 <input
-                                    type="text"
+                                    type="number"
                                     placeholder="2022"
                                     value={year}
                                     onChange={(e) => setYear(e.target.value)}
@@ -70,7 +70,7 @@ const ModalCreditCard = ({ onSubmitCard, number, setCVV, setMonth, setName,
                                     <span className="label-text">CVV</span>
                                 </label>
                                 <input
-                                    type="text"
+                                    type="number"
                                     placeholder="345"
                                     value={cvv}
                                     onChange={(e) => setCVV(e.target.value)}
@@ -93,7 +93,7 @@ const ModalCreditCard = ({ onSubmitCard, number, setCVV, setMonth, setName,
                             <small className='text-error'>{errorName}</small>
                         </div>
                         <div className='flex justify-end mt-5'>
-                            <button type='submit' className='bg-stay-secondary text-white rounded py-2 px-5'>Save Card</button>
+                            <button type='submit' className='bg-stay-secondary text-white rounded py-2 px-5'><label className='text-white' htmlFor={`${number !== '' && type !== '' && month !== '' && year !== '' && name !== '' && cvv !== '' && 'modal-card'}`}>Save Card</label></button>
                         </div>
                     </form>
                 </label>

@@ -7,33 +7,45 @@ import Cookies from 'js-cookie';
 import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
 import Swal from "sweetalert2";
+import Router from 'next/router';
 
 const CreditCard = ({ creditCards }) => {
     const currentUsers = useSelector((state) => state.users.currentUser)
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
     const [type, setType] = useState('');
-    const [cvv, setCVV] = useState('');
-    const [month, setMonth] = useState('');
-    const [year, setYear] = useState('');
+    const [cvvs, setCVV] = useState('');
+    const [months, setMonth] = useState('');
+    const [years, setYear] = useState('');
     const [errors, setErrors] = useState({});
+    const [cards, setCards] = useState([]);
 
     let schema = Yup.object().shape({
         name: Yup.string().required('Name is required'),
         number: Yup.string().required('Number is required'),
         type: Yup.string().required('Type is required'),
-        cvv: Yup.number('CVV is number').required('CVV is required'),
-        month: Yup.number('Month is number').required('Month is required'),
-        year: Yup.number('Year is number').required('Year is required'),
+        cvv: Yup.string().required('CVV is required'),
+        month: Yup.string().required('Month is required'),
+        year: Yup.string().required('Year is required'),
     });
+
+    const cvv = parseInt(cvvs);
+    const month = parseInt(months);
+    const year = parseInt(years);
 
     const token = Cookies.get('userToken');
     const user_id = currentUsers.id;
 
-    const onAddCard = async () => {
-        await api.addCard(token, { user_id })
+    const refresh = () => {
+        Router.push({
+            pathname: `/credit-card`
+        })
+    }
+
+    const onDeleteCard = async(id) => {
+        await api.deleteCreditCard(token, id)
             .then(response => {
-                const data = response.data.data;
+                const data = response.data;
                 if (data) {
                     Swal.fire({
                         position: "center",
@@ -43,6 +55,33 @@ const CreditCard = ({ creditCards }) => {
                         timer: 1500,
                     })
                 }
+                refresh();
+            })
+            .catch(error => {
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "Error Add Payment",
+                    showConfirmButton: true,
+                });
+            })
+    }
+
+    const onAddCard = async () => {
+        await api.addCard(token, {user_id, name, number, year, month, cvv })
+            .then(response => {
+                const data = response.data;
+                console.log(data);
+                if (data) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        text: "Add Payment Successfully",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                }
+                refresh();
             })
             .catch(error => {
                 Swal.fire({
@@ -96,7 +135,7 @@ const CreditCard = ({ creditCards }) => {
                 <label htmlFor='modal-card' className='bg-stay-secondary text-white rounded px-14 py-2 cursor-pointer'>Add</label>
             </div>
             <div className='grid grid-cols-3 mt-10 mx-8 gap-5'>
-                {creditCards.map(card => (
+                {creditCards?.map(card => (
                     <CardCreditCard
                         cvv={card.cvv}
                         month={card.month}
@@ -104,12 +143,30 @@ const CreditCard = ({ creditCards }) => {
                         name={card.name}
                         type={card.type}
                         year={card.year}
+                        onClickDelete={() => onDeleteCard(card.id)}
                     />
                 ))}
             </div>
             <ModalCreditCard
                 onSubmitCard={onSubmitAddCreditCard}
-                errorCVV={err}
+                errorCVV={errors.cvv}
+                errorMonth={errors.month}
+                errorName={errors.name}
+                errorNumber={errors.number}
+                errorType={errors.type}
+                errorYear={errors.year}
+                cvv={cvvs}
+                setCVV={setCVV}
+                month={months}
+                setMonth={setMonth}
+                name={name}
+                setName={setName}
+                number={number}
+                setNumber={setNumber}
+                type={type}
+                setType={setType}
+                year={years}
+                setYear={setYear}
             />
         </Layout>
     );

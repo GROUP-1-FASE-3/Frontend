@@ -1,7 +1,7 @@
 import React from 'react';
 import {FiTrash2} from 'react-icons/fi';
 
-const CardCreditCard = ({ number, type, name, cvv, month, year, onClickDelete }) => {
+const CardCreditCard = ({ number, type, name, cvv, month, year, onClickDelete, id }) => {
     return (
         <div className="card w-84 bg-stay-primary text-white">
             <div className="card-body relative">
@@ -20,7 +20,7 @@ const CardCreditCard = ({ number, type, name, cvv, month, year, onClickDelete })
                 </div>
             </div>
             <div className="absolute top-3 right-10">
-                <button className="text-white" onClick={onClickDelete}><FiTrash2 size={30} /></button>
+                <button className="text-white" onClick={() => onClickDelete(id)}><FiTrash2 size={30} /></button>
             </div>
         </div>
     );

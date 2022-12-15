@@ -116,7 +116,6 @@ export default {
             url: `creditcards`,
             headers: {
                 Authorization: `Bearer ${token}`,
-                'content-type': 'multipart/form-data'
             },
             data: {
                 type : type, 
@@ -127,6 +126,14 @@ export default {
                 year : year, 
                 user_id : user_id
             }
+        }),
+    deleteCreditCard: (token, id) =>
+        instance({
+            method: `DELETE`,
+            url: `creditcards/${id}`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
         }),
 };  
 
