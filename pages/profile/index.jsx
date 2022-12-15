@@ -38,8 +38,8 @@ const index = () => {
           <FormProfile
             full_name={user.user_name}
             emails={user.email}
-            phone_number={user.phone_number}
-            gender={user.gender}
+            phone_number_info={user.phone_number}
+            gender_info={user.gender}
           />
         ) : <></>}
         <div className="my-20 container mx-auto">
