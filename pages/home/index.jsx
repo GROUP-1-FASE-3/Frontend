@@ -17,7 +17,7 @@ const HomePage = () => {
     console.log('tet', currentUsers)
 
     useEffect(() => {
-        if (!cookie.userToken) {
+        if (!localStorage.getItem('userToken')) {
             router.push('/login')
         }
     }, [cookie.userToken])
@@ -25,7 +25,6 @@ const HomePage = () => {
     return (
         <div className='max-w-screen'>
             <Navbar />
-
             <div className='mt-10 md:container pl-12 md:mx-auto md:px-12 lg:px-20'>
                 <div className='flex flex-col md:flex-row gap-12 justify-between'>
                     <div className='order-2 md:order-1'>
