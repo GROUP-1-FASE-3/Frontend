@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import api from '../services/api'
 import { useSelector } from "react-redux";
+import axios from 'axios'
 
-const FormProfile = ({ full_name, gender_info, emails, phone_number_info }) => {
+const FormProfile = ({ full_name, gender_info, emails, phone_number_info, images }) => {
 
     const [user_name, setUserName] = useState()
     const [email, setEmail] = useState()
@@ -13,7 +14,20 @@ const FormProfile = ({ full_name, gender_info, emails, phone_number_info }) => {
     const currentUsers = useSelector((state) => state.users.currentUser)
 
     const updateUser = async () => {
-        await api.editProfile(localStorage.getItem('userToken'), currentUsers.id, { user_name, email, password, users_image, gender, phone_number })
+        const data = new FormData()
+        data.append('user_name', user_name);
+        data.append('email', email);
+        data.append('password', password);
+        data.append('gender', gender);
+        data.append('phone_number', phone_number);
+        data.append('user_images', users_image);
+
+        await axios.put(`https://rubahmerah.site/users/${currentUsers.id}`, data, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+                'content-type': 'multipart/form-data',
+            }
+        })
             .then(response => {
                 console.log(response)
             })
@@ -32,6 +46,7 @@ const FormProfile = ({ full_name, gender_info, emails, phone_number_info }) => {
             <h1 className='font-bold text-3xl text-stay-primary'>Personal Info</h1>
             <div className='mt-10'>
                 <form>
+                    <img src={images} className='w-[200px] rounded-full' />
                     <div>
                         <label className="label" htmlFor='fullName'>
                             <span className="label-text text-stay-primary text-xl">Full Name</span>
@@ -119,6 +134,16 @@ const FormProfile = ({ full_name, gender_info, emails, phone_number_info }) => {
                             className="input input-bordered max-w-2xl w-full bg-white border border-gray-400"
                         />
                     </div>
+                    <div className="flex flex-col w-full pt-2">
+                        <label htmlFor="" className="mb-1">
+                            Phone Number
+                        </label>
+                        <input
+                            onChange={(e) => setUserImage(e.target.files[0])}
+                            type="file"
+                            className="file-input w-full max-w-xs" />
+                    </div>
+
                     {/* <div className="flex flex-col w-full pt-2">
                         <label htmlFor="" className="mb-1">
                             Password
