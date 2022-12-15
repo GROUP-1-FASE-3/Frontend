@@ -7,6 +7,7 @@ import Navbar from "../../Components/Navbar";
 import TableBodyProfile from "../../Components/TableBodyProfile";
 import api from '../../services/api';
 import Link from 'next/link'
+import Router from "next/router";
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import Swal from "sweetalert2";
@@ -39,6 +40,13 @@ const index = () => {
       .catch(error => {
         console.log(error)
       })
+  }
+
+  const onEdit = (id) => {
+    Router.push({
+      pathname: `villa/edit/${id}`
+    })
+    // console.log(id)
   }
 
   const onDelete = async (id) => {
@@ -83,7 +91,6 @@ const index = () => {
     getDataUser();
     getVillaUser()
   }, []);
-  console.log('this ', userVilla)
 
   return (
     <div className="bg-white">
@@ -129,6 +136,7 @@ const index = () => {
                       address={item.address}
                       detail_bedroom={item.detail_bedroom}
                       price={item.price}
+                      onEdit={() => onEdit(item.id)}
                       onDelete={() => onDelete(item.id)}
                     />
                   )

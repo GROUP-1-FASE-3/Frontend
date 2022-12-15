@@ -50,7 +50,7 @@ const Navbar = () => {
                 <div className="flex-none">
                     <ul className="menu menu-horizontal px-1 z-10">
                         <li><Link href='/home' >Home</Link ></li>
-                        <li><Link href='/property/add'>Add Villa</Link></li>
+                        <li><Link href='/villa/add'>Add Villa</Link></li>
                         <li tabIndex={0}>
                             <a>
                                 <FaUserCircle size={25} className='text-[#C3CAD9]' />
