@@ -3,7 +3,7 @@ import axios from "axios";
 
 const instance = axios.create({
 
-    baseURL : `http://18.141.230.182:80/`
+    baseURL: `http://18.141.230.182:80/`
 })
 
 
@@ -19,7 +19,7 @@ export default {
             },
         }),
     //user
-    register: ({user_name, email, password, gender, phone_number, user_images}) => 
+    register: ({ user_name, email, password, gender, phone_number, user_images }) =>
         instance({
             method: `POST`,
             url: `users`,
@@ -42,12 +42,24 @@ export default {
         }),
 
     //villa
-    AddVilla: (token, {villa_name, price, description, address, villa_image1, villa_image2, villa_image3, guest, bedroom, bed, kitchen, pool, wifi}) =>
+    getVillas: (token) =>
+        instance({
+            method: `GET`,
+            url: `villas`,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }),
+    AddVilla: (token, { villa_name, price, description,
+        address, villa_image1, villa_image2, villa_image3,
+        detail_guest, detail_bedroom, detail_bed, detail_kitchen,
+        detail_pool, detail_wifi, user_id }) =>
         instance({
             method: `POST`,
             url: `villas`,
             headers: {
                 Authorization: `Bearer ${token}`,
+                'content-type':'multipart/form-data'
             },
             data: {
                 villa_name: villa_name,
@@ -57,12 +69,13 @@ export default {
                 villa_image1: villa_image1,
                 villa_image2: villa_image2,
                 villa_image3: villa_image3,
-                guest: guest,
-                bedroom: bedroom,
-                bed: bed,
-                kitchen: kitchen,
-                pool: pool,
-                wifi:wifi,
+                detail_guest: detail_guest,
+                detail_bedroom: detail_bedroom,
+                detail_bed: detail_bed,
+                detail_kitchen: detail_kitchen,
+                detail_pool: detail_pool,
+                detail_wifi: detail_wifi,
+                user_id : user_id
             }
         })
 };

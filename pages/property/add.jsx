@@ -5,6 +5,9 @@ import MultiImageInput from 'react-multiple-image-input';
 import 'regenerator-runtime/runtime'
 import api from '../../services/api';
 import { useSelector } from 'react-redux';
+import * as Yup from 'yup';
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
 
 const AddPage = () => {
     const crop = {
@@ -12,71 +15,178 @@ const AddPage = () => {
         aspect: 4 / 3,
         width: "100"
     };
-    
+
+    const [cookie, setCookie] = useCookies();
     const currentUsers = useSelector((state) => state.users.currentUser)
-    const [price, setPrice] = useState();
+    const [errors, setErrors] = useState({});
+    const [prices, setPrice] = useState();
     const [description, setDescription] = useState('');
     const [address, setAddress] = useState('');
     const [guest, setGuest] = useState();
     const [bedroom, setBedroom] = useState();
     const [bed, setBed] = useState();
     const [villa_name, setVillaName] = useState('');
-    const [villa_image1, setVillaImage1] = useState('');
-    const [villa_image2, setVillaImage2] = useState('');
-    const [villa_image3, setVillaImage3] = useState('');
-    const [kitchen, setKitchen] = useState('not-available');
-    const [pool, setPool] = useState('not-available');
-    const [wifi, setWifi] = useState('not-available');
-    const token = localStorage.getItem('userToken');
-    const id = currentUsers.id;
-    const user_name = currentUsers.user_name;
-    const newBed = parseInt(bed);
-    const newPrice = parseInt(price);
-    const newGuest = parseInt(guest);
-    const newBedroom = parseInt(bedroom);
+    const [villa_images1, setVillaImage1] = useState('');
+    const [villa_images2, setVillaImage2] = useState('');
+    const [villa_images3, setVillaImage3] = useState('');
+    const [bath, setBath] = useState('')
+    const [detail_kitchen, setKitchen] = useState('not-available');
+    const [detail_pool, setPool] = useState('not-available');
+    const [detail_wifi, setWifi] = useState('not-available');
+    const [detail_workspace, setWorkspace] = useState('not-available');
+    const token = cookie.userToken;
+    const user_id = currentUsers.id;
+    const detail_bed = parseInt(bed);
+    const price = parseInt(prices);
+    const detail_guest = parseInt(guest);
+    const detail_bedroom = parseInt(bedroom);
+    const detail_bath = parseInt(bath);
 
 
-    const [images, setImages] = useState({});
+    let schema = Yup.object().shape({
+        villa_name: Yup.string().required('Name villa is required'),
+        address: Yup.string().required('Address is required'),
+        description: Yup.string().required('Description is required'),
+        detail_bath: Yup.number('Detail bath is number').required('Detail bath is required'),
+        detail_bed: Yup.number('Detail bed is number').required('detail bed is required'),
+        detail_bedroom: Yup.number('Detail bedroom is number').required('detail bedroom is required'),
+        detail_guest: Yup.number('Detail guest is number').required('detail guest is required'),
+        detail_kitchen: Yup.string().required('Detail kitchen is required'),
+        detail_pool: Yup.string().required('Detail Pool is required'),
+        detail_wifi: Yup.string().required('Detail Wifi is required'),
+        price: Yup.number('Price is number').required('Price is required'),
+    });
 
-    const AddVillaHandler = async() => {
-        await api.AddVilla(token, {villa_name, newPrice, description, address, newGuest, newBedroom, newBed, kitchen, pool, wifi, villa_image1, villa_image2, villa_image3, id, user_name})
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            'content-type': 'multipart/form-data'
+        }
+    };
+
+
+    const AddVillaHandler = async () => {
+        const data = new FormData();
+
+        data.append('villa_name', villa_name);
+        data.append('price', price);
+        data.append('description', description);
+        data.append('address', address);
+        data.append('villa_images1', villa_images1);
+        data.append('villa_images2', villa_images2);
+        data.append('villa_images3', villa_images3);
+        data.append('detail_guest', detail_guest);
+        data.append('detail_bedroom', detail_bedroom);
+        data.append('detail_bed', detail_bed);
+        data.append('detail_bath', detail_bath);
+        data.append('detail_kitchen', detail_kitchen);
+        data.append('detail_pool', detail_pool);
+        data.append('detail_wifi', detail_wifi);
+        data.append('detail_workspace', detail_workspace);
+        data.append('user_id', user_id);
+
+        // await api.AddVilla(token, { villa_name, price, description, address, detail_bath, detail_guest, detail_bedroom, detail_bed, detail_kitchen, detail_pool, detail_wifi, villa_image1, villa_image2, villa_image3, user_id })
+        await axios.post(`https://rubahmerah.site/villas`, data, {
+            headers: {
+                Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NzEyMDkyMjYsInVzZXJJZCI6NX0.JUtvBQa5WS3E7MnVG19nBdJKY4THcj8ImHrw0-WbhEc`,
+                'content-type': 'multipart/form-data',
+            }
+        })
             .then(response => {
                 console.log(response)
             })
             .catch(error => {
                 console.log(error)
             })
+        // console.log(data)
     }
 
     const onSubmitAddVilla = (e) => {
-        AddVillaHandler();
         e.preventDefault();
-        console.log({villa_name, price, description, address, guest, bedroom, bed, kitchen, pool, wifi});
+        try {
+            schema.validateSync(
+                {
+                    villa_name: villa_name,
+                    address: address,
+                    description: description,
+                    detail_bath: detail_bath,
+                    detail_bed: detail_bed,
+                    detail_bedroom: detail_bedroom,
+                    detail_guest: detail_guest,
+                    detail_kitchen: detail_kitchen,
+                    detail_pool: detail_pool,
+                    detail_wifi: detail_wifi,
+                    price: price
+                },
+                {
+                    abortEarly: false
+                }
+            );
+            AddVillaHandler();
+        } catch (err) {
+            const { inner } = err;
+            let formErrors = {};
+
+            if (inner && inner[0]) {
+                inner.forEach(error => {
+                    const { path, message } = error;
+
+                    if (!formErrors[path]) {
+                        formErrors[path] = message;
+                    }
+                });
+            }
+            setErrors(formErrors);
+        }
     }
 
     const onCheckedWifi = (e) => {
-        if(e.target.checked) {
+        if (e.target.checked) {
             setWifi('available')
-        }else{
+        } else {
             setWifi('not-available')
         }
     }
 
     const onCheckedPool = (e) => {
-        if(e.target.checked) {
+        if (e.target.checked) {
             setPool('available')
-        }else{
+        } else {
             setPool('not-available')
         }
     }
 
     const onCheckedKitchen = (e) => {
-        if(e.target.checked) {
+        if (e.target.checked) {
             setKitchen('available')
-        }else{
+        } else {
             setKitchen('not-available')
         }
     }
+
+    const onCheckedWorkspace = (e) => {
+        if (e.target.checked) {
+            setWorkspace('available')
+        } else {
+            setWorkspace('not-available')
+        }
+    }
+
+    const handleVillaImage1 = (e) => {
+        const file = e.target.files[0];
+        setVillaImage1(file)
+    }
+
+    const handleVillaImage2 = (e) => {
+        const file = e.target.files[0];
+        setVillaImage2(file)
+    }
+
+    const handleVillaImage3 = (e) => {
+        const file = e.target.files[0];
+        setVillaImage3(file)
+    }
+
     return (
         <Layout page='Listing'>
             <HeroComponent
@@ -90,20 +200,28 @@ const AddPage = () => {
                 <div className="form-control w-full mb-6">
                     <label className="label font-medium text-xl pb-3">What is your Villa name?</label>
                     <input type="text" placeholder='Villa Name' value={villa_name} onChange={(e) => setVillaName(e.target.value)} className="input input-bordered w-full border-[#00000042]" />
+                    <small className='text-error'>{errors.villa_name}</small>
                 </div>
                 <div className="form-control w-full mb-6">
                     <label className="label font-medium text-xl pb-3">How much is the rent?</label>
-                    <input type="number" placeholder='$3000' value={price} onChange={(e) => setPrice(e.target.value)} className="input input-bordered w-full border-[#00000042]" />
+                    <input type="number" placeholder='$3000' value={prices} onChange={(e) => setPrice(e.target.value)} className="input input-bordered w-full border-[#00000042]" />
+                    <small className='text-error'>{errors.price}</small>
                 </div>
                 <div className="form-control w-full mb-6">
                     <label className="label font-medium text-xl pb-3">Where`s your place located?</label>
                     <input type="text" placeholder='Address' value={address} onChange={(e) => setAddress(e.target.value)} className="input input-bordered w-full border-[#00000042]" />
+                    <small className='text-error'>{errors.address}</small>
                 </div>
                 <div className="form-control w-full mb-6">
                     <label className="label font-medium text-xl pb-3">Detail Properties</label>
-                    <input type="number" placeholder='How many guests  your property can provide?' value={guest} onChange={(e) => setGuest(e.target.value)} className="input input-bordered w-full mb-6 border-[#00000042]" />
-                    <input type="number" placeholder='How many bedrooms  your property can provide?' value={bedroom} onChange={(e) => setBedroom(e.target.value)} className="input input-bordered w-full mb-6 border-[#00000042]" />
-                    <input type="number" placeholder='How many beds  your property can provide?' value={bed} onChange={(e) => setBed(e.target.value)} className="input input-bordered w-full mb-3 border-[#00000042]" />
+                    <input type="number" placeholder='How many guests your property can provide?' value={guest} onChange={(e) => setGuest(e.target.value)} className="input input-bordered w-full mb-6 border-[#00000042]" />
+                    <small className='text-error'>{errors.detail_guest}</small>
+                    <input type="number" placeholder='How many bedrooms your property can provide?' value={bedroom} onChange={(e) => setBedroom(e.target.value)} className="input input-bordered w-full mb-6 border-[#00000042]" />
+                    <small className='text-error'>{errors.detail_bedroom}</small>
+                    <input type="number" placeholder='How many beds your property can provide?' value={bed} onChange={(e) => setBed(e.target.value)} className="input input-bordered w-full mb-3 border-[#00000042]" />
+                    <small className='text-error'>{errors.detail_bed}</small>
+                    <input type="number" placeholder='How many bathroom your property can provide?' value={bath} onChange={(e) => setBath(e.target.value)} className="input input-bordered w-full mb-3 border-[#00000042]" />
+                    <small className='text-error'>{errors.detail_bath}</small>
                 </div>
                 <div className="w-full flex md:flex-wrap sm:flex-wrap xs:flex-wrap lg:gap-10 md:gap-5 items-center">
                     <label className="label font-medium text-xl xl:w-auto lg:w-full md:w-full sm:w-full xs:w-full">What your place has to offer?</label>
@@ -127,25 +245,29 @@ const AddPage = () => {
                     </div>
                     <div className="form-control">
                         <label className="label cursor-pointer">
-                            <input type="checkbox" className="hover:bg-white cursor-pointer w-7 h-7 border-[#00000042] checked:hover:bg-stay-primary checked:focus:bg-stay-primary focus:outline-none rounded-md checked:bg-stay-primary mx-5" />
+                            <input type="checkbox" onChange={(e) => onCheckedWorkspace(e)} className="hover:bg-white cursor-pointer w-7 h-7 border-[#00000042] checked:hover:bg-stay-primary checked:focus:bg-stay-primary focus:outline-none rounded-md checked:bg-stay-primary mx-5" />
                             <span className="label-text text-base font-semibold text-stay-primary">Workspace</span>
                         </label>
                     </div>
                 </div>
                 <div className='mt-10'>
                     <h2 className='text-xl text-stay-primary font-medium mb-3'>Add some photos of your place</h2>
-                    <MultiImageInput
+                    {/* <MultiImageInput
                         images={images}
                         setImages={setImages}
                         allowCrop={false}
                         theme={"light"}
                         cropConfig={{ crop, ruleOfThirds: true }}
                         className='border-none'
-                    />
+                    /> */}
+                    <input type="file" name='file1' onChange={(e) => handleVillaImage1(e)} id="" /> <br />
+                    <input type="file" name='file2' onChange={(e) => handleVillaImage2(e)} id="" /> <br />
+                    <input type="file" name='file3' onChange={(e) => handleVillaImage3(e)} id="" />
                 </div>
                 <div className="form-control w-full mt-5">
                     <label className="label font-medium text-xl pb-3">Create your description</label>
                     <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="input input-bordered w-full border-[#00000042] h-[200px] resize-none" placeholder='Description'>{description}</textarea>
+                    <small className='text-error'>{errors.description}</small>
                 </div>
                 <div className="text-end mt-10">
                     <button className='bg-stay-secondary w-[200px] h-[50px] text-white font-medium text-[18px] rounded'>Save</button>

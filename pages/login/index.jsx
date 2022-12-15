@@ -3,7 +3,8 @@ import AuthPage from '../../Components/AuthPage';
 import Link from 'next/link'
 import { IoEye, IoEyeOff } from 'react-icons/io5';
 import api from '../../services/api';
-import { useCookies } from 'react-cookie';
+// import { useCookies } from 'react-cookie';
+import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import { useDispatch } from "react-redux";
 import { updateUser } from '../../store/slice/userSlice';
@@ -12,7 +13,7 @@ const LoginPage = () => {
     const [hidePassword, setHidePassword] = useState(true);
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    const [cookie, setCookie] = useCookies(['userToken'])
+    // const [cookie, setCookie] = useCookies(['userToken'])
     const router = useRouter()
     const dispatch = useDispatch()
 
@@ -23,7 +24,7 @@ const LoginPage = () => {
                 console.log(data)
                 setEmail('')
                 setPassword('')
-                setCookie('userToken', data.token)
+                Cookies.set('userToken', data.token)
                 dispatch(updateUser(data))
             })
             .catch(error => {
@@ -38,12 +39,12 @@ const LoginPage = () => {
     }
 
     useEffect(() => {
-        if (cookie.userToken) {
+        if (Cookies.get('userToken')) {
             router.push('/home')
         } else {
             console.log('kosong')
         }
-    }, [cookie])
+    }, [Cookies])
 
     return (
         <AuthPage>
