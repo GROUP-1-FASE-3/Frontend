@@ -55,6 +55,8 @@ const index = () => {
             phone_numbers={user.phone_number}
             genders={user.gender}
             images={user.user_images}
+            phone_number_info={user.phone_number}
+            gender_info={user.gender}
           />
         ) : <></>}
         <div className="my-20 container mx-auto">

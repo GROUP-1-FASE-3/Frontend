@@ -58,14 +58,13 @@ const FormProfile = ({ full_name, gender_info, emails, phone_number_info }) => {
                     </div>
                 </form>
                 <form
-                    className='my-10 px-10 py-8 bg-white rounded-lg border border-border-primary shadow-xl'
+                    className='my-10 px-10 py-8 bg-white'
                     onSubmit={(e) => handleUpdates(e)}
                 >
                     <div className="flex justify-between">
                         <span className="text-xl font-bold text-stay-primary">
                             Edit Personal Info
                         </span>
-                        <img className=" w-[100px]" src="/images/stay_logo.svg" alt="stay logo" />
                     </div>
                     <div className="flex flex-col text-lg pt-2">
                         <label htmlFor="" className="pb-1">

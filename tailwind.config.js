@@ -31,7 +31,7 @@ module.exports = {
       'black': '#000000',
       'white': '#ffffff',
       'yellow-star': '#FF9900',
-      'error' : '#ff0a1f',
+      'error': '#ff0a1f',
     },
     // screens: {
     //   xs: '300px',
