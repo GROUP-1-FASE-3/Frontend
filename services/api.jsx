@@ -19,7 +19,7 @@ export default {
             },
         }),
     //user
-    register: ({user_name, email, password, gender, phone_number, user_images}) => 
+    register: ({ user_name, email, password, gender, phone_number, user_images }) =>
         instance({
             method: `POST`,
             url: `users`,
