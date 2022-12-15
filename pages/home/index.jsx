@@ -72,7 +72,7 @@ const HomePage = ({ villas }) => {
                         <div className="grid grid-cols-4 gap-y-10 gap-x-5">
                             {
                                 villas.map(villa => (
-                                    <CardHome address={villa.address} price={villa.price} villa_name={villa.vila_name} key={villa.id} />
+                                    <CardHome address={villa.address} price={villa.price} villa_name={villa.vila_name} key={villa.id} imgUrl={villa.villa_images1} />
                                 ))
                             }
                         </div>
