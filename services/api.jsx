@@ -16,7 +16,7 @@ export default {
             },
         }),
     //user
-    register: ({ user_name, email, password, gender, phone_number, user_images }) =>
+    register: ({ user_name, email, password, }) =>
         instance({
             method: `POST`,
             url: `users`,
@@ -24,9 +24,6 @@ export default {
                 user_name: user_name,
                 email: email,
                 password: password,
-                gender: gender,
-                phone_number: phone_number,
-                user_images: user_images
             },
         }),
     getUser: (token, id) =>
@@ -97,7 +94,9 @@ export default {
                 password: password,
                 users_image: users_image,
                 gender: gender,
-                phone_number: phone_number
+                phone_number: phone_number,
+                gender: gender,
+                phone_number: phone_number,
             }
         }),
 };
