@@ -19,7 +19,6 @@ const AddPage = () => {
         width: "100"
     };
 
-    const [cookie, setCookie] = useCookies();
     const currentUsers = useSelector((state) => state.users.currentUser)
     const [errors, setErrors] = useState({});
     const [prices, setPrice] = useState();

@@ -1,7 +1,6 @@
 # Stay Web App
-
-## About The Project
-Stay is a website for villa / Home Guest reservation
+Stay is a website for villa / Home Guest reservation.
+You can check website in [this link](https://stay-app.netlify.app/)
 
 ## Built With
 This website make a technology
