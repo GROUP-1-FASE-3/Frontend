@@ -15,6 +15,7 @@ import { useState } from 'react';
 import Swal from 'sweetalert2';
 import Router from 'next/router';
 import DatePickers from '../../Components/DatePicker';
+import Layout from '../../Components/Layout';
 
 const myLoader = ({ src }) => {
   return `${src}`;
@@ -76,8 +77,7 @@ function DetailPage({ villa }) {
   };
 
   return (
-    <div className="max-w-screen">
-      <Navbar />
+    <Layout page='Detail'>
       <div className="container mx-auto py-px-20">
         <section>
           <div className="mt-10 py-2.5 bottom-0  bg-blue-400 text-primary text-left">
@@ -178,8 +178,7 @@ function DetailPage({ villa }) {
           detail_wifi={villa.detail_wifi}
         />
       </div>
-      <Footer />
-    </div>
+    </Layout>
   );
 }
 export async function getServerSideProps({ req, params }) {
