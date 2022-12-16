@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React, { useCallback } from 'react'
-import { FaUserCircle } from 'react-icons/Fa'
+import { FaUserCircle } from 'react-icons/fa'
 import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { useRouter } from 'next/router';
