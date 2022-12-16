@@ -215,5 +215,19 @@ export default {
                 end_date: end_date,
             },
         }),
+        addReservation: (token, { villa_id, start_date, end_date, credit_card_id}) =>
+        instance({
+            method: `POST`,
+            url: `reservations`,
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            data: {
+                villa_id: villa_id,
+                start_date: start_date,
+                end_date: end_date,
+                credit_card_id:credit_card_id
+            },
+        }),
 };
 

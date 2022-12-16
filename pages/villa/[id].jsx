@@ -23,33 +23,35 @@ const myLoader = ({ src }) => {
 
 function DetailPage({ villa }) {
 
-  const [value, setValue] = useState({
-    startDate: new Date(),
-    endDate: new Date().setMonth(11),
-  });
-  const start_date = value.startDate;
-  const end_date = value.endDate;
+  const [inDate, setInDate] = useState('');
+  const [outDate, setOutDate] = useState('');
+  const [price, setPrice] = useState();
+  const [night, setNight] = useState('');
+
 
   const villa_id = parseInt(villa.id);
 
+  const checkPrice = async () => {
+    const IN = parseInt(inDate.substring(8));
+    const OUT = parseInt(outDate.substring(8));
+    let totalNight = parseInt(OUT - IN);
+    setNight(totalNight)
+    let totalPrice = parseInt(villa.price * totalNight)
+    setPrice(totalPrice)
+  }
   const onPayment = () => {
     Router.push({
       pathname: `/bookingpage`,
     });
   };
 
-
-  const handleValueChange = (newValue) => {
-    console.log('newValue:', newValue);
-    setValue(newValue);
-  };
-  console.log(value.startDate);
+  console.log(price);
 
   const getReservationData = async () => {
     await api
-      .getReservation(Cookies.get('userToken'), { villa_id, start_date, end_date })
+      .getReservation(Cookies.get('userToken'), { villa_id, inDate, outDate })
       .then((response) => {
-        console.log(response.data);
+        checkPrice()
         const data = response.data;
         if (data) {
           Swal.fire({
@@ -60,9 +62,10 @@ function DetailPage({ villa }) {
             timer: 1500,
           });
         }
-        Cookies.set('start_date', start_date);
-        Cookies.set('end_date', end_date);
-        onPayment();
+        Cookies.set('start_date', inDate);
+        Cookies.set('end_date', outDate);
+        Cookies.set('villa_id', villa.id);
+        // onPayment();
       })
 
       .catch((error) => {
@@ -150,7 +153,7 @@ function DetailPage({ villa }) {
                 <div className="card-body justify-content-center mb-5 ">
                   <h2 className="font-bold  ">Start Booking Now</h2>
                   <div className="grid grid-cols-2 justify-content-center">
-                    <h2 className="font-bold justify-text-end text-xl text-green-600"> Rp 1.259.000</h2>
+                    <h2 className="font-bold justify-text-end text-xl text-green-600">${villa.price}</h2>
                     <h2 className="text-bold justify-text-center text-secondary ">per night</h2>
                   </div>
 
@@ -158,11 +161,27 @@ function DetailPage({ villa }) {
                     how long will you stay? <DatePicker />
                   </p> */}
                   <p className="text-primary font-medium text-xs mb-0">
-                    pick a date <DatePickers value={value} handleValueChange={handleValueChange} />
+                    {/* pick a date <DatePickers value={value} handleValueChange={handleValueChange} /> */}
+                    <div className='from-control'>
+                      <label className='text-xl'>Check In</label> <br />
+                      <input type="date" value={inDate} onChange={(e) => setInDate(e.target.value)} />
+                    </div>
+                    <div className='from-control'>
+                      <label className='text-xl'>Check Out</label> <br />
+                      <input type="date" value={outDate} onChange={(e) => setOutDate(e.target.value)} />
+                    </div>
                   </p>
                   <button onClick={(onPayment) => getReservationData()} className=" justify-coontent-center btn bg-stay-secondary border-none mt-3 mb-3 md:w-[210px] sm:w-[110px] font-medium md:text-md sm:text-xs">
-                    Continue to Book
+                    Check Date
                   </button>
+                  {
+                    price && (
+                      <>
+                        <div>Payment Total : {villa.price} x {night} = {price}</div>
+                        <button onClick={()=>onPayment()} className=" justify-coontent-center btn bg-stay-secondary border-none mt-3 mb-3 md:w-[210px] sm:w-[110px] font-medium md:text-md sm:text-xs">Continue Booking</button>
+                      </>
+                    )
+                  }
                 </div>
               </div>
             </div>

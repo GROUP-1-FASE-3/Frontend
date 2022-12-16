@@ -67,10 +67,9 @@ const CreditCard = ({ creditCards }) => {
     }
 
     const onAddCard = async () => {
-        await api.addCard(token, {user_id, name, number, year, month, cvv })
+        await api.addCard(token, {user_id, name, number, year, month, cvv, type })
             .then(response => {
                 const data = response.data;
-                console.log(data);
                 if (data) {
                     Swal.fire({
                         position: "center",
@@ -90,9 +89,10 @@ const CreditCard = ({ creditCards }) => {
                     showConfirmButton: true,
                 });
             })
-    }
-
-    const onSubmitAddCreditCard = (e) => {
+        }
+        console.log({user_id, name, number, year, month, cvv, type })
+        
+        const onSubmitAddCreditCard = (e) => {
         e.preventDefault();
         try {
             schema.validateSync(

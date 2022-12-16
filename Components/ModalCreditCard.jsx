@@ -30,7 +30,6 @@ const ModalCreditCard = ({ onSubmitCard, number, setCVV, setMonth, setName,
                                     <span className="label-text">Type</span>
                                 </label>
                                 <select className="select w-full max-w-xs select-bordered select-lg text-sm" value={type} onChange={(e) => setType(e.target.value)}>
-                                    <option selected>Choose card</option>
                                     <option value='Visa'>Visa</option>
                                     <option value='Master Card'>Master Card</option>
                                     <option value='Genius'>Genius</option>
