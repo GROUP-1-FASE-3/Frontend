@@ -8,7 +8,6 @@ import pool from '.././src/images/icons/ic_pool.svg';
 import diningroom from '.././src/images/icons/ic_diningroom.svg';
 import tv from '.././src/images/icons/ic_tv.svg';
 import wifi from '.././src/images/icons/item.svg';
-import axios from 'axios';
 const FacilitiesCard = ({ detail_guest, detail_bedroom, detail_bed, detail_bath, detail_wifi, detail_kitchen, detail_pool }) => {
   return (
     <div className="container w-1/2 grid grid-rows-2">
