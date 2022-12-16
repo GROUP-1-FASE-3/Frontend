@@ -34,7 +34,6 @@ function DetailPage({ villa }) {
   const onPayment = () => {
     Router.push({
       pathname: `/bookingpage`,
-      query: { startDate: start_date, startDate: end_date },
     });
   };
 
@@ -60,6 +59,8 @@ function DetailPage({ villa }) {
             timer: 1500,
           });
         }
+        Cookies.set('start_date', start_date);
+        Cookies.set('end_date', end_date);
         onPayment();
       })
 

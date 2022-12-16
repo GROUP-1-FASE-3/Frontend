@@ -49,7 +49,7 @@ const HomePage = () => {
     // console.log(villas)
     useEffect(() => {
         getVillas();
-        if (!localStorage.getItem('userToken')) {
+        if (!token) {
             router.push('/login');
         }
     }, [Cookies.get('userToken')]);
