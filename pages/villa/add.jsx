@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
+import cookies from 'js-cookie';
 import Swal from "sweetalert2";
 import Router from 'next/router';
 
